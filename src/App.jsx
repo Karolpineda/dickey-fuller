@@ -1149,8 +1149,8 @@ function CalculatorTab() {
                                 <tr key={idx}>
                                   <td>{idx + 1}</td>
                                   <td>{val.toFixed(1)}</td>
-                                  <td className="highlight-x">{xi.toFixed(1)}</td>
-                                  <td className="highlight-y">{yi.toFixed(1)}</td>
+                                  <td className="highlight-x">{Number.isInteger(xi) ? xi.toFixed(0) : xi.toFixed(2)}</td>
+                                  <td className="highlight-y">{Number.isInteger(yi) ? yi.toFixed(0) : yi.toFixed(2)}</td>
                                   <td className="highlight-x">{x_diff.toFixed(2)}</td>
                                   <td className="highlight-y">{y_diff.toFixed(2)}</td>
                                   <td className="highlight-prod">{prod.toFixed(2)}</td>
@@ -1159,13 +1159,13 @@ function CalculatorTab() {
                               );
                             })}
                             <tr style={{ fontWeight: '700', borderTop: '2px solid var(--accent)' }}>
-                              <td colSpan="2">Sumas ($\sum$)</td>
-                              <td className="highlight-x" style={{ color: 'var(--accent)' }}>{stats.sum_X.toFixed(1)}</td>
-                              <td className="highlight-y" style={{ color: 'var(--accent2)' }}>{stats.sum_Y.toFixed(1)}</td>
+                              <td colSpan="2">Medias / Sumas</td>
+                              <td className="highlight-x" style={{ color: 'var(--accent)' }}>{stats.mean_X.toFixed(2)}</td>
+                              <td className="highlight-y" style={{ color: 'var(--accent2)' }}>{stats.mean_Y.toFixed(2)}</td>
                               <td className="highlight-x">-</td>
                               <td className="highlight-y">-</td>
-                              <td className="highlight-prod" style={{ color: 'var(--warning)', fontWeight: 'bold' }}>{stats.sum_prod.toFixed(4)}</td>
-                              <td className="highlight-sq" style={{ color: 'var(--green)', fontWeight: 'bold' }}>{stats.sum_sq.toFixed(4)}</td>
+                              <td className="highlight-prod" style={{ color: 'var(--warning)', fontWeight: 'bold' }}>{stats.sum_prod.toFixed(2)}</td>
+                              <td className="highlight-sq" style={{ color: 'var(--green)', fontWeight: 'bold' }}>{stats.sum_sq.toFixed(2)}</td>
                             </tr>
                           </tbody>
                         </table>
@@ -1307,6 +1307,87 @@ function CalculatorTab() {
                           </div>
                         </div>
                       )}
+
+                      <h4 style={{ marginTop: '2.5rem', marginBottom: '1rem', color: 'var(--text-white)' }}>Tabla de Trabajo Completa con Residuos</h4>
+                      <p style={{ fontSize: '0.85rem', marginBottom: '1rem', color: 'var(--text-muted)' }}>
+                        Esta es la tabla final consolidada, incluyendo los valores predichos y los residuos calculados a partir de los coeficientes estimados:
+                      </p>
+                      <div className="premium-table-container">
+                        <table className="premium-table" style={{ fontSize: '0.75rem' }}>
+                          <thead>
+                            <tr>
+                              <th>t</th>
+                              <th>{"$Y_t$"}</th>
+                              <th className="highlight-header-x">{"$X_i = Y_{t-1}$"}</th>
+                              <th className="highlight-header-y">{"$Y_i = \\Delta Y_t$"}</th>
+                              <th className="highlight-header-x">{"$X_i - \\bar{X}$"}</th>
+                              <th className="highlight-header-y">{"$Y_i - \\bar{Y}$"}</th>
+                              <th className="highlight-header-prod">Prod. Desv.</th>
+                              <th className="highlight-header-sq">{"Desv. Cuad. ($X_i - \\bar{X})^2$"}</th>
+                              <th className="highlight-header-y">{"$\\hat{Y}_i$"}</th>
+                              <th>{"$\\hat{\\mu}_i$"}</th>
+                              <th className="highlight-header-sq">{"$\\hat{\\mu}_i^2$"}</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            {series.map((val, idx) => {
+                              if (idx === 0) {
+                                return (
+                                  <tr key={idx}>
+                                    <td>1</td>
+                                    <td>{val.toFixed(1)}</td>
+                                    <td className="highlight-x">-</td>
+                                    <td className="highlight-y">-</td>
+                                    <td className="highlight-x">-</td>
+                                    <td className="highlight-y">-</td>
+                                    <td className="highlight-prod">-</td>
+                                    <td className="highlight-sq">-</td>
+                                    <td className="highlight-y">-</td>
+                                    <td>-</td>
+                                    <td className="highlight-sq">-</td>
+                                  </tr>
+                                );
+                              }
+                              const xi = stats.X[idx - 1];
+                              const yi = stats.Y[idx - 1];
+                              const x_diff = stats.X_diff[idx - 1];
+                              const y_diff = stats.Y_diff[idx - 1];
+                              const prod = stats.prod[idx - 1];
+                              const sq = stats.sq[idx - 1];
+                              const y_pred = stats.Y_pred[idx - 1];
+                              const resid = stats.resids[idx - 1];
+                              const resid_sq = stats.resids_sq[idx - 1];
+                              return (
+                                <tr key={idx}>
+                                  <td>{idx + 1}</td>
+                                  <td>{val.toFixed(1)}</td>
+                                  <td className="highlight-x">{Number.isInteger(xi) ? xi.toFixed(0) : xi.toFixed(2)}</td>
+                                  <td className="highlight-y">{Number.isInteger(yi) ? yi.toFixed(0) : yi.toFixed(2)}</td>
+                                  <td className="highlight-x">{x_diff.toFixed(2)}</td>
+                                  <td className="highlight-y">{y_diff.toFixed(2)}</td>
+                                  <td className="highlight-prod">{prod.toFixed(2)}</td>
+                                  <td className="highlight-sq">{sq.toFixed(2)}</td>
+                                  <td className="highlight-y">{y_pred.toFixed(2)}</td>
+                                  <td>{resid.toFixed(2)}</td>
+                                  <td className="highlight-sq">{resid_sq.toFixed(2)}</td>
+                                </tr>
+                              );
+                            })}
+                            <tr style={{ fontWeight: '700', borderTop: '2px solid var(--accent)' }}>
+                              <td colSpan="2">Medias / Sumas</td>
+                              <td className="highlight-x" style={{ color: 'var(--accent)' }}>{stats.mean_X.toFixed(2)}</td>
+                              <td className="highlight-y" style={{ color: 'var(--accent2)' }}>{stats.mean_Y.toFixed(2)}</td>
+                              <td className="highlight-x">-</td>
+                              <td className="highlight-y">-</td>
+                              <td className="highlight-prod" style={{ color: 'var(--warning)', fontWeight: 'bold' }}>{stats.sum_prod.toFixed(2)}</td>
+                              <td className="highlight-sq" style={{ color: 'var(--green)', fontWeight: 'bold' }}>{stats.sum_sq.toFixed(2)}</td>
+                              <td className="highlight-y">-</td>
+                              <td>-</td>
+                              <td className="highlight-sq" style={{ color: 'var(--green)', fontWeight: 'bold' }}>{stats.sum_resids_sq.toFixed(2)}</td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
                     </div>
                   </div>
                 )}
