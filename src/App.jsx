@@ -215,10 +215,7 @@ function App() {
 
       <footer className="app-footer">
         <p>
-          <strong>Dickey &amp; Fuller (1979)</strong> — Journal of the American Statistical Association. +21,000 citas.
-        </p>
-        <p>
-          Desarrollado para fines académicos. Los valores críticos de la prueba corresponden a la fórmula de MacKinnon (1996).
+          <strong>Dickey &amp; Fuller (1979)</strong> — Carrera de Estadística
         </p>
       </footer>
     </>
