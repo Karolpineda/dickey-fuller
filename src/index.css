@@ -181,6 +181,48 @@ body {
   margin: 0 auto 1.5rem;
 }
 
+.hero-group {
+  margin: 1.5rem auto 1.75rem;
+  padding: 1rem 1.5rem;
+  background: rgba(16, 22, 37, 0.4);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  max-width: 650px;
+  backdrop-filter: blur(8px);
+}
+
+.hero-group-title {
+  display: block;
+  font-family: var(--heading);
+  font-weight: 700;
+  font-size: 0.85rem;
+  color: var(--accent);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 0.6rem;
+}
+
+.hero-group-members {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 0.8rem 1.2rem;
+}
+
+.hero-group-members span {
+  font-size: 0.9rem;
+  color: var(--text-light);
+  font-weight: 500;
+  position: relative;
+}
+
+.hero-group-members span:not(:last-child)::after {
+  content: "•";
+  position: absolute;
+  right: -0.7rem;
+  color: var(--text-muted);
+}
+
 .hero-chips {
   display: flex;
   justify-content: center;

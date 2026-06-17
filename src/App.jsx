@@ -169,7 +169,6 @@ function App() {
       <header className="app-header">
         <div className="brand">
           <span className="brand-accent">Dickey-Fuller</span>
-          <span>Interactive</span>
         </div>
         <nav className="nav-tabs">
           <button
@@ -194,11 +193,20 @@ function App() {
       </header>
 
       <div className="hero">
-        <span className="hero-tag">Econometría y Series Temporales</span>
         <h1>La Prueba de Dickey-Fuller</h1>
         <p>
           Fundamentos matemáticos y análisis interactivo paso a paso para la detección de raíces unitarias y estacionariedad.
         </p>
+        <div className="hero-group">
+          <span className="hero-group-title">Grupo 10</span>
+          <div className="hero-group-members">
+            <span>Chicaiza Eduardo</span>
+            <span>Navarrete Marlon</span>
+            <span>Pineda Fabricio</span>
+            <span>Soria Samanta</span>
+            <span>Tapia Alex</span>
+          </div>
+        </div>
         <div className="hero-chips">
           <span className="hero-chip special">Interacciones Reactivas</span>
           <span className="hero-chip">Nobel 2003 (Granger &amp; Engle)</span>
@@ -286,7 +294,7 @@ function TheoryTab() {
                 <div className="grid-2" style={{ gridTemplateColumns: '1fr 1fr', gap: '1.25rem' }}>
                   <div className="glass-card" style={{ borderLeft: '3px solid var(--accent)', padding: '1.25rem', margin: '0' }}>
                     <h4 style={{ color: 'var(--accent)', marginBottom: '0.5rem', textTransform: 'uppercase', fontSize: '0.8rem', letterSpacing: '0.05em' }}>
-                      Objetivo del Contrases
+                      Objetivo
                     </h4>
                     <p style={{ fontSize: '0.85rem', lineHeight: '1.5', margin: 0 }}>
                       Este contraste permite saber o conocer si existe presencia significativa de tendencia en las series temporales de las variables.
@@ -374,7 +382,7 @@ function TheoryTab() {
                 </div>
               </div>
 
-              <h4 style={{ color: 'var(--accent)', marginBottom: '0.5rem' }}>El Proceso AR(1) — Corazón de la Prueba</h4>
+              <h4 style={{ color: 'var(--accent)', marginBottom: '0.5rem' }}>El Proceso AR(1)</h4>
               <div className="math-block" style={{ margin: '0.75rem 0', padding: '0.5rem' }}>
                 {"$$y_t = \\rho y_{t-1} + \\epsilon_t, \\quad \\epsilon_t \\sim \\text{i.i.d.}(0, \\sigma^2)$$" }
               </div>
