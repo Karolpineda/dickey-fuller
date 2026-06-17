@@ -138,6 +138,16 @@ const SimIcon = () => (
   </svg>
 );
 
+const CaseIcon = () => (
+  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+    <polyline points="14 2 14 8 20 8" />
+    <line x1="16" y1="13" x2="8" y2="13" />
+    <line x1="16" y1="17" x2="8" y2="17" />
+    <polyline points="10 9 9 9 8 9" />
+  </svg>
+);
+
 const ShieldIcon = ({ isGreen }) => (
   <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
     <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
@@ -189,6 +199,12 @@ function App() {
           >
             <SimIcon /> Simulador AR(1)
           </button>
+          <button
+            className={`tab-btn ${activeTab === 'case_study' ? 'active' : ''}`}
+            onClick={() => setActiveTab('case_study')}
+          >
+            <CaseIcon /> Caso Práctico
+          </button>
         </nav>
       </header>
 
@@ -219,11 +235,12 @@ function App() {
         {activeTab === 'theory' && <TheoryTab />}
         {activeTab === 'calculator' && <CalculatorTab />}
         {activeTab === 'simulation' && <SimulationTab />}
+        {activeTab === 'case_study' && <CaseStudyTab />}
       </main>
 
       <footer className="app-footer">
         <p>
-          <strong>Dickey &amp; Fuller (1979)</strong> — Carrera de Estadística
+          <strong>Dickey &amp; Fuller</strong>
         </p>
       </footer>
     </>
@@ -1534,6 +1551,416 @@ function SimulationTab() {
           </div>
         </div>
       )}
+    </div>
+  );
+}
+
+/* ============================================================================
+   CASE STUDY TAB (VENTA DIARIA TOMATE RIÑON)
+   ============================================================================ */
+function CaseStudyTab() {
+  const [seriesType, setSeriesType] = useState('original'); // 'original' or 'diff'
+  const [modelType, setModelType] = useState('hw'); // 'arima' or 'hw'
+  const containerRef = useRef(null);
+
+  useEffect(() => {
+    if (window.MathJax && window.MathJax.typesetPromise && containerRef.current) {
+      window.MathJax.typesetClear([containerRef.current]);
+      window.MathJax.typesetPromise([containerRef.current]).catch((err) =>
+        console.error('MathJax error during render: ', err)
+      );
+    }
+  }, [seriesType, modelType]);
+
+  // Historical demand (last 21 days of May 2026)
+  const historicalData = [
+    { date: 'May 11', value: 310.5 },
+    { date: 'May 12', value: 1205.2 },
+    { date: 'May 13', value: 272.4 },
+    { date: 'May 14', value: 312.8 },
+    { date: 'May 15', value: 281.3 },
+    { date: 'May 16', value: 362.5 },
+    { date: 'May 17', value: 382.1 },
+    { date: 'May 18', value: 305.8 },
+    { date: 'May 19', value: 1195.4 },
+    { date: 'May 20', value: 265.9 },
+    { date: 'May 21', value: 305.1 },
+    { date: 'May 22', value: 275.6 },
+    { date: 'May 23', value: 355.0 },
+    { date: 'May 24', value: 370.4 },
+    { date: 'May 25', value: 300.2 },
+    { date: 'May 26', value: 1180.1 },
+    { date: 'May 27', value: 260.5 },
+    { date: 'May 28', value: 300.9 },
+    { date: 'May 29', value: 268.4 },
+    { date: 'May 30', value: 352.1 },
+    { date: 'May 31', value: 372.4 }
+  ];
+
+  // ARIMA projections (15 days of June 2026)
+  const arimaProjections = [
+    { date: 'Jun 01', value: 485.20 },
+    { date: 'Jun 02', value: 472.16 },
+    { date: 'Jun 03', value: 475.14 },
+    { date: 'Jun 04', value: 474.46 },
+    { date: 'Jun 05', value: 474.61 },
+    { date: 'Jun 06', value: 474.58 },
+    { date: 'Jun 07', value: 474.58 },
+    { date: 'Jun 08', value: 474.58 },
+    { date: 'Jun 09', value: 474.58 },
+    { date: 'Jun 10', value: 474.58 },
+    { date: 'Jun 11', value: 474.58 },
+    { date: 'Jun 12', value: 474.58 },
+    { date: 'Jun 13', value: 474.58 },
+    { date: 'Jun 14', value: 474.58 },
+    { date: 'Jun 15', value: 474.58 }
+  ];
+
+  // Holt-Winters projections (15 days of June 2026)
+  const hwProjections = [
+    { date: 'Jun 01', value: 308.02 },
+    { date: 'Jun 02', value: 1184.95 },
+    { date: 'Jun 03', value: 262.45 },
+    { date: 'Jun 04', value: 307.04 },
+    { date: 'Jun 05', value: 269.77 },
+    { date: 'Jun 06', value: 355.96 },
+    { date: 'Jun 07', value: 374.21 },
+    { date: 'Jun 08', value: 302.61 },
+    { date: 'Jun 09', value: 1179.55 },
+    { date: 'Jun 10', value: 257.05 },
+    { date: 'Jun 11', value: 301.64 },
+    { date: 'Jun 12', value: 264.37 },
+    { date: 'Jun 13', value: 350.56 },
+    { date: 'Jun 14', value: 368.81 },
+    { date: 'Jun 15', value: 297.21 }
+  ];
+
+  // Calculate differentiated data points
+  const diffData = useMemo(() => {
+    const list = [];
+    for (let i = 1; i < historicalData.length; i++) {
+      list.push({
+        date: historicalData[i].date,
+        value: historicalData[i].value - historicalData[i - 1].value
+      });
+    }
+    return list;
+  }, []);
+
+  // Set active chart coordinates
+  const activeSeries = useMemo(() => {
+    if (seriesType === 'original') {
+      const activeProj = modelType === 'arima' ? arimaProjections : hwProjections;
+      return [...historicalData, ...activeProj];
+    }
+    return diffData;
+  }, [seriesType, modelType, diffData]);
+
+  // Y bounds calculation
+  const minMax = useMemo(() => {
+    const vals = activeSeries.map(d => d.value);
+    const min = Math.min(...vals);
+    const max = Math.max(...vals);
+    const range = max - min;
+    const padding = range * 0.1 || 10;
+    return {
+      min: min - padding,
+      max: max + padding
+    };
+  }, [activeSeries]);
+
+  const width = 800;
+  const height = 250;
+  const chartPadding = { top: 20, right: 30, bottom: 30, left: 55 };
+
+  const getSvgCoords = (index, value) => {
+    const xRange = activeSeries.length - 1;
+    const yRange = minMax.max - minMax.min;
+    const x = chartPadding.left + (index / xRange) * (width - chartPadding.left - chartPadding.right);
+    const y = chartPadding.top + ((minMax.max - value) / yRange) * (height - chartPadding.top - chartPadding.bottom);
+    return { x, y };
+  };
+
+  const lineSvgPath = useMemo(() => {
+    let list = [];
+    if (seriesType === 'original') {
+      list = historicalData;
+    } else {
+      list = diffData;
+    }
+    const coords = list.map((d, i) => getSvgCoords(i, d.value));
+    return coords.map((c, i) => `${i === 0 ? 'M' : 'L'} ${c.x} ${c.y}`).join(' ');
+  }, [seriesType, minMax]);
+
+  const forecastSvgPath = useMemo(() => {
+    if (seriesType !== 'original') return '';
+    const proj = modelType === 'arima' ? arimaProjections : hwProjections;
+    const lastHist = historicalData[historicalData.length - 1];
+    const firstCoords = getSvgCoords(historicalData.length - 1, lastHist.value);
+    const coords = proj.map((d, i) => getSvgCoords(historicalData.length + i, d.value));
+    return `M ${firstCoords.x} ${firstCoords.y} ` + coords.map(c => `L ${c.x} ${c.y}`).join(' ');
+  }, [seriesType, modelType, minMax]);
+
+  return (
+    <div className="tab-panel" ref={containerRef}>
+      <h2>Caso de Estudio: Venta Diaria de Tomate Riñón</h2>
+      <p style={{ fontFamily: 'var(--serif)', fontStyle: 'italic', marginBottom: '1.5rem' }}>
+        Análisis estadístico de una serie de tiempo real con 365 observaciones correspondientes a la demanda diaria de tomate riñón desde el 01/06/2025 hasta el 31/05/2026.
+      </p>
+
+      {/* Descriptive Statistics Panel */}
+      <div className="glass-card" style={{ marginTop: '0' }}>
+        <h3 style={{ fontFamily: 'var(--heading)', fontWeight: '700', color: 'var(--text-white)', marginBottom: '0.75rem' }}>
+          Análisis Descriptivo de la Serie de Tiempo Real
+        </h3>
+        <p style={{ fontSize: '0.9rem', color: 'var(--text-light)', marginBottom: '1.25rem' }}>
+          La serie contiene 365 observaciones diarias que abarcan un año completo. Presenta una altísima volatilidad con picos recurrentes y marcados de demanda.
+        </p>
+        <div className="sim-stats-grid" style={{ gridTemplateColumns: 'repeat(auto-fit, minmax(140px, 1fr))', gap: '1rem' }}>
+          <div className="stat-card">
+            <div className="stat-lbl">Observaciones (T)</div>
+            <div className="stat-val">365 días</div>
+          </div>
+          <div className="stat-card">
+            <div className="stat-lbl">Demanda Promedio</div>
+            <div className="stat-val">534.91 u</div>
+          </div>
+          <div className="stat-card">
+            <div className="stat-lbl">Desviación Estándar</div>
+            <div className="stat-val">378.95 u</div>
+          </div>
+          <div className="stat-card">
+            <div className="stat-lbl">Mínimo / Máximo</div>
+            <div className="stat-val" style={{ fontSize: '0.95rem', marginTop: '0.15rem' }}>128.15 / 1922.4</div>
+          </div>
+          <div className="stat-card">
+            <div className="stat-lbl">Coef. Variación</div>
+            <div className="stat-val" style={{ color: 'var(--warning)' }}>70.8%</div>
+          </div>
+        </div>
+      </div>
+
+      {/* Toggle Buttons & Visual Chart */}
+      <div style={{ display: 'flex', gap: '1rem', marginBottom: '1rem', flexWrap: 'wrap' }}>
+        <div className="nav-tabs" style={{ padding: '0.2rem' }}>
+          <button
+            className={`tab-btn ${seriesType === 'original' ? 'active' : ''}`}
+            onClick={() => setSeriesType('original')}
+            style={{ fontSize: '0.8rem', padding: '0.35rem 0.85rem' }}
+          >
+            Serie Original ($Y_t$)
+          </button>
+          <button
+            className={`tab-btn ${seriesType === 'diff' ? 'active' : ''}`}
+            onClick={() => setSeriesType('diff')}
+            style={{ fontSize: '0.8rem', padding: '0.35rem 0.85rem' }}
+          >
+            Serie Diferenciada ($\Delta Y_t$)
+          </button>
+        </div>
+
+        {seriesType === 'original' && (
+          <div className="nav-tabs" style={{ padding: '0.2rem' }}>
+            <button
+              className={`tab-btn ${modelType === 'hw' ? 'active' : ''}`}
+              onClick={() => setModelType('hw')}
+              style={{ fontSize: '0.8rem', padding: '0.35rem 0.85rem' }}
+            >
+              Proyección Holt-Winters (Estacional)
+            </button>
+            <button
+              className={`tab-btn ${modelType === 'arima' ? 'active' : ''}`}
+              onClick={() => setModelType('arima')}
+              style={{ fontSize: '0.8rem', padding: '0.35rem 0.85rem' }}
+            >
+              Proyección ARIMA (1,1,1)
+            </button>
+          </div>
+        )}
+      </div>
+
+      <div className="chart-container" style={{ marginBottom: '1.5rem' }}>
+        <div className="chart-title">
+          <span>
+            {seriesType === 'original' 
+              ? `Serie Temporal Real y Proyección a 15 días (${modelType === 'arima' ? 'ARIMA' : 'Holt-Winters'})`
+              : 'Primera Diferencia de la Serie Temporal ($\u0394 Y_t$)'}
+          </span>
+          <div className="chart-legend">
+            <div className="legend-item">
+              <div className="legend-color" style={{ background: 'var(--accent)' }}></div>
+              <span>{seriesType === 'original' ? 'Histórico (Últimos 21 días)' : 'Serie Diferenciada'}</span>
+            </div>
+            {seriesType === 'original' && (
+              <div className="legend-item">
+                <div className="legend-color" style={{ background: modelType === 'arima' ? 'var(--danger)' : 'var(--warning)', height: '2px', borderTop: '2px dashed' }}></div>
+                <span>Proyección 15 días</span>
+              </div>
+            )}
+          </div>
+        </div>
+
+        <svg className="svg-chart" style={{ height: '260px' }} viewBox="0 0 800 260">
+          {/* Gridlines Y */}
+          {[0, 0.25, 0.5, 0.75, 1].map((p, i) => {
+            const yVal = minMax.min + p * (minMax.max - minMax.min);
+            const pt = getSvgCoords(0, yVal);
+            return (
+              <g key={i}>
+                <line className="chart-grid-line" x1={chartPadding.left} y1={pt.y} x2={width - chartPadding.right} y2={pt.y} />
+                <text className="chart-axis-text" x="5" y={pt.y + 3}>{yVal.toFixed(1)}</text>
+              </g>
+            );
+          })}
+          {/* Axis X */}
+          <line className="chart-axis-line" x1={chartPadding.left} y1={height - chartPadding.bottom} x2={width - chartPadding.right} y2={height - chartPadding.bottom} />
+          {/* Axis X Labels */}
+          {activeSeries.map((d, idx) => {
+            if (idx % 3 === 0 || idx === activeSeries.length - 1) {
+              const pt = getSvgCoords(idx, d.value);
+              return (
+                <text key={idx} className="chart-axis-text" x={pt.x - 12} y={height - 8}>{d.date}</text>
+              );
+            }
+            return null;
+          })}
+          {/* Paths */}
+          <path className="series-line" d={lineSvgPath} style={{ strokeWidth: '1.8' }} />
+          {seriesType === 'original' && (
+            <path className="series-line" d={forecastSvgPath} style={{ 
+              stroke: modelType === 'arima' ? 'var(--danger)' : 'var(--warning)', 
+              strokeWidth: '1.8', 
+              strokeDasharray: '5 3' 
+            }} />
+          )}
+        </svg>
+      </div>
+
+      {/* ADF Test Side-by-side results */}
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(400px, 1fr))', gap: '1.5rem', marginBottom: '1.5rem' }}>
+        {/* original ADF */}
+        <div className="glass-card" style={{ margin: 0, borderTop: '3px solid var(--danger)' }}>
+          <span className="section-tag" style={{ color: 'var(--danger)' }}>ADF: Serie en Niveles (Original)</span>
+          <h4 style={{ fontFamily: 'var(--heading)', fontWeight: '700', color: 'var(--text-white)', marginBottom: '0.75rem' }}>
+            Prueba de Raíz Unitaria (ADF) en Niveles
+          </h4>
+          <div className="math-block" style={{ margin: '0.75rem 0', padding: '0.4rem', fontSize: '0.9rem' }}>
+            {"$$y_t = \\rho y_{t-1} + \\epsilon_t$$"}
+          </div>
+          <p style={{ fontSize: '0.85rem', marginBottom: '0.75rem' }}>
+            Resultados del análisis estadístico de la demanda original:
+          </p>
+          <ul style={{ fontSize: '0.85rem', marginLeft: '1.25rem', marginBottom: '1rem', color: 'var(--text-light)' }}>
+            <li>Estadístico de Prueba (t-stat): <strong style={{ color: 'var(--danger)' }}>-1.9764</strong></li>
+            <li>Valor p (p-value): <strong style={{ color: 'var(--danger)' }}>0.2970</strong> (mayor a 0.05)</li>
+            <li>Rezagos (lags) óptimos: 15 (criterio de AIC)</li>
+            <li>Valores críticos (MacKinnon): 1% = -3.4492, 5% = -2.8699, 10% = -2.5712</li>
+          </ul>
+          <div className="decision-card fail-reject" style={{ padding: '0.75rem', margin: 0 }}>
+            <div className="decision-icon" style={{ width: '2rem', height: '2rem' }}>
+              <ShieldIcon isGreen={false} />
+            </div>
+            <div className="decision-text">
+              <h5 className="decision-title" style={{ fontSize: '0.9rem', marginBottom: '0.1rem' }}>No Estacionaria (No se rechaza H0)</h5>
+              <p className="decision-desc" style={{ fontSize: '0.75rem' }}>
+                {"Dado que t-stat (-1.9764) > -2.8699, no podemos rechazar la presencia de raíz unitaria. La serie posee comportamiento no estacionario."}
+              </p>
+            </div>
+          </div>
+        </div>
+
+        {/* Diff ADF */}
+        <div className="glass-card" style={{ margin: 0, borderTop: '3px solid var(--green)' }}>
+          <span className="section-tag" style={{ color: 'var(--green)' }}>ADF: Serie Diferenciada</span>
+          <h4 style={{ fontFamily: 'var(--heading)', fontWeight: '700', color: 'var(--text-white)', marginBottom: '0.75rem' }}>
+            Prueba de Raíz Unitaria (ADF) en Diferencias
+          </h4>
+          <div className="math-block" style={{ margin: '0.75rem 0', padding: '0.4rem', fontSize: '0.9rem' }}>
+            {"$$\\Delta y_t = \\phi y_{t-1} + \\epsilon_t$$"}
+          </div>
+          <p style={{ fontSize: '0.85rem', marginBottom: '0.75rem' }}>
+            {"Resultados del análisis estadístico tras aplicar una diferencia ($\\Delta Y_t = Y_t - Y_{t-1}$):"}
+          </p>
+          <ul style={{ fontSize: '0.85rem', marginLeft: '1.25rem', marginBottom: '1rem', color: 'var(--text-light)' }}>
+            <li>Estadístico de Prueba (t-stat): <strong style={{ color: 'var(--green)' }}>-7.3553</strong></li>
+            <li>Valor p (p-value): <strong style={{ color: 'var(--green)' }}>0.0000</strong> (altamente significativo)</li>
+            <li>Rezagos (lags) óptimos: 14 (criterio de AIC)</li>
+            <li>Valores críticos (MacKinnon): 1% = -3.4492, 5% = -2.8699, 10% = -2.5712</li>
+          </ul>
+          <div className="decision-card reject" style={{ padding: '0.75rem', margin: 0 }}>
+            <div className="decision-icon" style={{ width: '2rem', height: '2rem' }}>
+              <ShieldIcon isGreen={true} />
+            </div>
+            <div className="decision-text">
+              <h5 className="decision-title" style={{ fontSize: '0.9rem', marginBottom: '0.1rem' }}>Serie Estacionaria (Se rechaza H0)</h5>
+              <p className="decision-desc" style={{ fontSize: '0.75rem' }}>
+                {"El estadístico de prueba -7.3553 es significativamente menor que -3.4492. Se rechaza la raíz unitaria. La serie diferenciada es estacionaria (I(0))."}
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Forecast comparison section */}
+      <div className="glass-card">
+        <h3 style={{ fontFamily: 'var(--heading)', fontWeight: '700', color: 'var(--text-white)', marginBottom: '1rem' }}>
+          Comparación de Modelos de Proyección: ARIMA(1,1,1) vs. Holt-Winters
+        </h3>
+        <p style={{ fontSize: '0.9rem', color: 'var(--text-light)', marginBottom: '1.25rem', lineHeight: '1.6' }}>
+          La demanda diaria del Tomate Riñón presenta un fuerte componente estacional de carácter semanal. 
+          Al proyectar 15 días, observamos un fenómeno operativo crítico: el modelo <strong>ARIMA(1,1,1)</strong> se aplana casi por completo a partir del segundo día 
+          (estancándose en $\approx 474$ unidades), lo que limita su utilidad práctica.
+          <br /><br />
+          Para solucionarlo, se implementó el modelo de suavización exponencial de <strong>Holt-Winters</strong> estacional aditivo con periodos estacionales de 7 días, logrando replicar con éxito los picos de venta de los días martes y valles de media semana.
+        </p>
+
+        <div className="premium-table-container">
+          <table className="premium-table">
+            <thead>
+              <tr>
+                <th>Fecha</th>
+                <th>Día de la Semana</th>
+                <th>Proyección ARIMA (1,1,1)</th>
+                <th>Proyección Holt-Winters (Estacional)</th>
+                <th>Comparativa de Comportamiento</th>
+              </tr>
+            </thead>
+            <tbody>
+              {arimaProjections.map((item, idx) => {
+                const hwVal = hwProjections[idx].value;
+                const isPeak = hwVal > 1000;
+                const isValley = hwVal < 300;
+                let dayName = 'Lunes';
+                switch (idx % 7) {
+                  case 0: dayName = 'Lunes'; break;
+                  case 1: dayName = 'Martes'; break;
+                  case 2: dayName = 'Miércoles'; break;
+                  case 3: dayName = 'Jueves'; break;
+                  case 4: dayName = 'Viernes'; break;
+                  case 5: dayName = 'Sábado'; break;
+                  case 6: dayName = 'Domingo'; break;
+                }
+
+                return (
+                  <tr key={idx}>
+                    <td>{item.date}</td>
+                    <td style={{ fontWeight: isPeak ? '600' : '400', color: isPeak ? 'var(--warning)' : 'var(--text-light)' }}>
+                      {dayName}
+                    </td>
+                    <td>{item.value.toFixed(2)} u</td>
+                    <td style={{ fontWeight: isPeak || isValley ? '700' : '400', color: isPeak ? 'var(--warning)' : (isValley ? 'var(--accent)' : 'var(--text-light)') }}>
+                      {hwVal.toFixed(2)} u
+                    </td>
+                    <td style={{ fontSize: '0.8rem', textAlign: 'left', paddingLeft: '1.5rem', color: isPeak ? 'var(--warning)' : (isValley ? 'var(--accent)' : 'var(--text-muted)') }}>
+                      {isPeak ? '★ Pico de demanda semanal (Martes)' : (isValley ? '▼ Valle de demanda (Miércoles)' : 'Demanda regular')}
+                    </td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
+        </div>
+      </div>
     </div>
   );
 }
