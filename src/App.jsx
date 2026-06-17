@@ -226,7 +226,7 @@ function App() {
    THEORY TAB
    ============================================================================ */
 function TheoryTab() {
-  const [activeSec, setActiveSec] = useState('problema');
+  const [activeSec, setActiveSec] = useState('proposito');
   const containerRef = useRef(null);
 
   // MathJax typesetting effect specifically for changing slides
@@ -240,17 +240,11 @@ function TheoryTab() {
   }, [activeSec]);
 
   const sections = [
-    { id: 'problema', label: '01 · El Problema' },
-    { id: 'estacionariedad', label: '02 · Proceso AR(1)' },
-    { id: 'formulacion', label: '03 · Formulación Original' },
-    { id: 'modelos', label: '04 · Los Tres Modelos' },
-    { id: 'asintotica', label: '05 · Distribución Asintótica' },
-    { id: 'estimador', label: '06 · Estimador MCO' },
-    { id: 'valores_criticos', label: '07 · Valores Críticos' },
-    { id: 'adf', label: '08 · Prueba ADF' },
-    { id: 'extensiones', label: '09 · PP, KPSS, DF-GLS' },
-    { id: 'algoritmo', label: '10 · Algoritmo Práctico' },
-    { id: 'sintesis', label: '11 · Síntesis General' }
+    { id: 'proposito', label: '01 · Propósito de la Prueba' },
+    { id: 'problema', label: '02 · El Problema' },
+    { id: 'estacionariedad', label: '03 · Proceso AR(1)' },
+    { id: 'formulacion', label: '04 · Formulación Original' },
+    { id: 'modelos', label: '05 · Los Tres Modelos' }
   ];
 
   const activeIndex = sections.findIndex((sec) => sec.id === activeSec);
@@ -275,9 +269,51 @@ function TheoryTab() {
 
       <div className="theory-sections" ref={containerRef}>
         <div className="step-card" key={activeSec}>
+          {activeSec === 'proposito' && (
+            <section className="theory-section" id="proposito">
+              <span className="section-tag">Diapositiva 1 de 5 — Propósito de la prueba</span>
+              <h2>Propósito de la prueba</h2>
+              
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem', marginTop: '1.25rem' }}>
+                <p style={{ fontSize: '0.95rem', lineHeight: '1.6', color: 'var(--text-light)', margin: 0 }}>
+                  Llamada de esta forma por los estadísticos estadounidenses <strong>David Dickey</strong> y <strong>Wayne Fuller</strong>, esta prueba de raíz única detecta estadísticamente la presencia de conducta tendencial que estocástica en las series temporales de las variables a través de contrastar las hipótesis.
+                </p>
+
+                <div className="grid-2" style={{ gridTemplateColumns: '1fr 1fr', gap: '1.25rem' }}>
+                  <div className="glass-card" style={{ borderLeft: '3px solid var(--accent)', padding: '1.25rem', margin: '0' }}>
+                    <h4 style={{ color: 'var(--accent)', marginBottom: '0.5rem', textTransform: 'uppercase', fontSize: '0.8rem', letterSpacing: '0.05em' }}>
+                      Objetivo del Contraste
+                    </h4>
+                    <p style={{ fontSize: '0.85rem', lineHeight: '1.5', margin: 0 }}>
+                      Este contraste permite saber o conocer si existe presencia significativa de tendencia en las series temporales de las variables.
+                    </p>
+                  </div>
+
+                  <div className="glass-card" style={{ borderLeft: '3px solid var(--accent2)', padding: '1.25rem', margin: '0' }}>
+                    <h4 style={{ color: 'var(--accent2)', marginBottom: '0.5rem', textTransform: 'uppercase', fontSize: '0.8rem', letterSpacing: '0.05em' }}>
+                      Determinación Clave
+                    </h4>
+                    <p style={{ fontSize: '0.85rem', lineHeight: '1.5', margin: 0 }}>
+                      En otras palabras, la prueba se utiliza para determinar si una raíz unitaria se encuentra presente en un modelo autorregresivo.
+                    </p>
+                  </div>
+                </div>
+
+                <div className="glass-card" style={{ borderTop: '3px solid var(--green)', padding: '1.25rem', margin: '0' }}>
+                  <h4 style={{ color: 'var(--green)', marginBottom: '0.5rem', textTransform: 'uppercase', fontSize: '0.8rem', letterSpacing: '0.05em' }}>
+                    Ampliación y Evolución
+                  </h4>
+                  <p style={{ fontSize: '0.85rem', lineHeight: '1.5', margin: 0 }}>
+                    Es importante destacar que, los mismos estadísticos ampliaron su prueba básica de raíz unitaria autorregresiva, para que pudiera adaptarse a modelos con mayor complejidad <strong>(prueba Dickey-Fuller aumentada)</strong>, que es la que prueba una raíz unitaria en una muestra de serie temporal.
+                  </p>
+                </div>
+              </div>
+            </section>
+          )}
+
           {activeSec === 'problema' && (
             <section className="theory-section" id="problema">
-              <span className="section-tag">Diapositiva 1 de 11 — El Problema</span>
+              <span className="section-tag">Diapositiva 2 de 5 — El Problema</span>
               <h2>¿Por qué existe la Prueba de Dickey-Fuller?</h2>
               
               <div className="grid-2" style={{ gridTemplateColumns: '1fr 1fr', gap: '1.5rem', marginTop: '1rem' }}>
@@ -313,7 +349,7 @@ function TheoryTab() {
 
           {activeSec === 'estacionariedad' && (
             <section className="theory-section" id="estacionariedad">
-              <span className="section-tag">Diapositiva 2 de 11 — Proceso AR(1)</span>
+              <span className="section-tag">Diapositiva 3 de 5 — Proceso AR(1)</span>
               <h2>Estacionariedad y Proceso AR(1)</h2>
               <p style={{ fontSize: '0.85rem', marginBottom: '0.75rem' }}>
                 Un proceso es estacionario en covarianza si cumple tres condiciones para todo $t$:
@@ -370,7 +406,7 @@ function TheoryTab() {
 
           {activeSec === 'formulacion' && (
             <section className="theory-section" id="formulacion">
-              <span className="section-tag">Diapositiva 3 de 11 — Formulación</span>
+              <span className="section-tag">Diapositiva 4 de 5 — Formulación</span>
               <h2>La Prueba DF: Formulación Original (Dickey &amp; Fuller, 1979)</h2>
               <p style={{ fontSize: '0.85rem', marginBottom: '0.75rem' }}>
                 {"Transformación algebraica clave: restar $y_{t-1}$ a ambos lados del $AR(1)$"}
@@ -410,7 +446,7 @@ function TheoryTab() {
 
           {activeSec === 'modelos' && (
             <section className="theory-section" id="modelos">
-              <span className="section-tag">Diapositiva 4 de 11 — Especificaciones</span>
+              <span className="section-tag">Diapositiva 5 de 5 — Especificaciones</span>
               <h2>Los Tres Modelos de Dickey-Fuller (1979, 1981)</h2>
               <p style={{ fontSize: '0.85rem', marginBottom: '0.75rem' }}>
                 Cada especificación responde a la naturaleza de la serie observada — elegir mal invalida la prueba
@@ -460,301 +496,6 @@ function TheoryTab() {
               <p style={{ fontSize: '0.8rem', color: 'var(--warning)', marginTop: '0.75rem', textAlign: 'center', margin: '0.75rem 0 0 0' }}>
                 {"Regla de decisión: rechazar $H_0$ si $\\hat{\\tau} <$ Valor Crítico (prueba unilateral izquierda)"}
               </p>
-            </section>
-          )}
-
-          {activeSec === 'asintotica' && (
-            <section className="theory-section" id="asintotica">
-              <span className="section-tag">Diapositiva 5 de 11 — Fundamento Matemático</span>
-              <h2>Distribución Asintótica Bajo $H_0$ — El Resultado Matemático Central</h2>
-              
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '0.6rem' }}>
-                <div className="glass-card" style={{ padding: '0.75rem', margin: '0' }}>
-                  <h4 style={{ color: 'var(--accent)', fontSize: '0.85rem', marginBottom: '0.25rem' }}>① Principio de Invarianza de Donsker (base del resultado)</h4>
-                  <p style={{ fontSize: '0.75rem', margin: '0 0 0.4rem 0' }}>
-                    {"Si los errores $\\epsilon_t$ satisfacen condiciones de regularidad (Hamilton, 1994), la serie normalizada converge a un Movimiento Browniano:"}
-                  </p>
-                  <div className="math-block" style={{ padding: '0.4rem', fontSize: '0.85rem', margin: '0.25rem 0' }}>
-                    {"$$\\frac{1}{\\sigma \\sqrt{T}} y_{\\lfloor Tr \\rfloor} \\implies W(r) \\quad \\text{en } C[0,1]$$"}
-                  </div>
-                  <p style={{ fontSize: '0.75rem', margin: 0, color: 'var(--text-muted)' }}>
-                    {"$W(r)$ = proceso de Wiener estándar, $r \\in [0,1]$"}
-                  </p>
-                </div>
-
-                <div className="glass-card" style={{ padding: '0.75rem', margin: '0' }}>
-                  <h4 style={{ color: 'var(--accent2)', fontSize: '0.85rem', marginBottom: '0.25rem' }}>② Convergencia de los Momentos Muestrales</h4>
-                  <p style={{ fontSize: '0.75rem', margin: '0 0 0.4rem 0' }}>
-                    {"Bajo $H_0$ la suma de cuadrados de los regresores converge a una integral estocástica, no a una constante:"}
-                  </p>
-                  <div className="math-block" style={{ padding: '0.4rem', fontSize: '0.85rem', margin: '0.25rem 0' }}>
-                    {"$$\\frac{1}{T^2} \\sum_{t=1}^T y_{t-1}^2 \\implies \\sigma^2 \\int_0^1 W(r)^2 dr$$"}
-                  </div>
-                </div>
-
-                <div className="glass-card" style={{ padding: '0.75rem', margin: '0' }}>
-                  <h4 style={{ color: 'var(--green)', fontSize: '0.85rem', marginBottom: '0.25rem' }}>{"③ Distribución Límite del Estadístico $\\hat{\\tau}$ (Phillips, 1987 · Chan & Wei, 1988)"}</h4>
-                  <div className="math-block" style={{ padding: '0.4rem', fontSize: '0.85rem', margin: '0.25rem 0' }}>
-                    {"$$\\hat{\\tau} \\implies \\frac{\\int_0^1 W(r) dW(r)}{\\sqrt{\\int_0^1 W(r)^2 dr}}$$" }
-                  </div>
-                  <p style={{ fontSize: '0.75rem', margin: '0 0 0.4rem 0' }}>
-                    {"Por Fórmula de Itô: $\\int_0^1 W dW = \\frac{1}{2}[W(1)^2 - 1]$"}
-                  </p>
-                  <p style={{ fontSize: '0.75rem', margin: 0, color: 'var(--text-muted)' }}>
-                    {"$\\to$ Distribución DF: asimétrica negativa · media < 0 · valores críticos obtenidos por Monte Carlo"}
-                  </p>
-                </div>
-              </div>
-            </section>
-          )}
-
-          {activeSec === 'estimador' && (
-            <section className="theory-section" id="estimador">
-              <span className="section-tag">Diapositiva 6 de 11 — Superconvergencia</span>
-              <h2>Estimador MCO y la Propiedad de Superconvergencia</h2>
-              
-              <div className="grid-2" style={{ gridTemplateColumns: '1.2fr 0.8fr', gap: '1.5rem', marginTop: '1rem' }}>
-                <div>
-                  <h4 style={{ color: 'var(--accent)', marginBottom: '0.5rem', fontSize: '0.9rem' }}>{"Estimador MCO de $\\phi$"}</h4>
-                  <div className="math-block" style={{ margin: '1rem 0', padding: '0.5rem' }}>
-                    {"$$\\hat{\\phi} = \\frac{\\sum_{t=1}^T y_{t-1} \\Delta y_t}{\\sum_{t=1}^T y_{t-1}^2} \\quad (t = 1, \\dots, T)$$" }
-                  </div>
-                  
-                  <h4 style={{ color: 'var(--accent2)', marginBottom: '0.5rem', fontSize: '0.9rem', marginTop: '1rem' }}>¿Por qué converge más rápido?</h4>
-                  <p style={{ fontSize: '0.8rem', lineHeight: '1.4' }}>
-                    {"Bajo raíz unitaria, $\\sum y_{t-1}^2$ crece como $T^2$ (en vez de $T$), lo que compensa la mayor variabilidad del proceso y produce una distribución límite no degenerada para $T \\cdot \\hat{\\phi}$."}
-                  </p>
-                </div>
-
-                <div className="glass-card" style={{ padding: '1rem', display: 'flex', flexDirection: 'column', justifyContent: 'center', margin: '0' }}>
-                  <h4 style={{ color: 'var(--green)', fontSize: '0.8rem', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '0.75rem', textAlign: 'center' }}>
-                    Tasa de Convergencia
-                  </h4>
-                  
-                  <div style={{ marginBottom: '0.75rem', borderBottom: '1px solid var(--border)', paddingBottom: '0.75rem' }}>
-                    <span style={{ fontSize: '0.7rem', color: 'var(--text-muted)' }}>{"Caso Estacionario ($|\\rho| < 1$)"}</span>
-                    <div style={{ fontSize: '0.95rem', fontWeight: 'bold', color: 'var(--text-light)', margin: '0.2rem 0' }}>
-                      {"$$\\sqrt{T}(\\hat{\\phi} - \\phi) \\implies N(0, \\sigma^2)$$" }
-                    </div>
-                    <span style={{ fontSize: '0.7rem', color: 'var(--accent)' }}>{"Tasa $\\sqrt{T}$ — la habitual"}</span>
-                  </div>
-
-                  <div>
-                    <span style={{ fontSize: '0.7rem', color: 'var(--text-muted)' }}>{"Caso Raíz Unitaria ($\\rho = 1$)"}</span>
-                    <div style={{ fontSize: '0.95rem', fontWeight: 'bold', color: 'var(--green)', margin: '0.2rem 0' }}>
-                      {"$$T(\\hat{\\phi} - \\phi) = O_p(1)$$" }
-                    </div>
-                    <span style={{ fontSize: '0.7rem', color: 'var(--green)', fontWeight: 'bold' }}>Tasa $T$ — SUPERCONVERGENTE</span>
-                  </div>
-                </div>
-              </div>
-            </section>
-          )}
-
-          {activeSec === 'valores_criticos' && (
-            <section className="theory-section" id="valores_criticos">
-              <span className="section-tag">Diapositiva 7 de 11 — Valores Críticos</span>
-              <h2>Values Críticos: Tablas DF y Fórmula de MacKinnon</h2>
-              
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
-                <div className="glass-card" style={{ padding: '1rem', margin: '0' }}>
-                  <p style={{ fontSize: '0.85rem', margin: '0 0 0.5rem 0' }}>
-                    Los valores críticos <strong>NO</strong> pueden obtenerse de tablas t-Student: se calculan por simulación Monte Carlo.
-                  </p>
-                  <p style={{ fontSize: '0.8rem', color: 'var(--text-muted)', margin: 0 }}>
-                    Fuente: Fuller (1976) · MacKinnon (1991, 1996)
-                  </p>
-                </div>
-
-                <div className="grid-2" style={{ gridTemplateColumns: '1.1fr 0.9fr', gap: '1.5rem', margin: '0' }}>
-                  <div className="glass-card" style={{ padding: '1rem', margin: '0' }}>
-                    <h4 style={{ color: 'var(--accent)', fontSize: '0.85rem', marginBottom: '0.4rem' }}>Fórmula de Respuesta de Superficie — MacKinnon (1996)</h4>
-                    <div className="math-block" style={{ padding: '0.5rem', margin: '0.4rem 0' }}>
-                      {"$$CV_T = \\beta_\\infty + \\frac{\\beta_1}{T} + \\frac{\\beta_2}{T^2}$$"}
-                    </div>
-                    <p style={{ fontSize: '0.75rem', color: 'var(--text-muted)', margin: 0 }}>
-                      {"Permite calcular el valor crítico exacto para CUALQUIER tamaño muestral $T$. Los coeficientes $\\beta$ se obtienen por regresión sobre miles de réplicas Monte Carlo."}
-                    </p>
-                  </div>
-
-                  <div className="glass-card" style={{ padding: '1rem', borderLeft: '4px solid var(--warning)', margin: '0', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
-                    <h4 style={{ color: 'var(--warning)', fontSize: '0.8rem', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '0.5rem' }}>
-                      REGLA DE DECISIÓN
-                    </h4>
-                    <p style={{ fontSize: '0.75rem', margin: '0 0 0.4rem 0' }}>
-                      {"• Si $\\hat{\\tau} < VC \\implies$ rechazar $H_0 \\implies$ serie estacionaria $I(0)$"}
-                    </p>
-                    <p style={{ fontSize: '0.75rem', margin: 0 }}>
-                      {"• Si $\\hat{\\tau} \\ge VC \\implies$ no rechazar $H_0 \\implies$ evidencia de raíz unitaria $I(1)$"}
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </section>
-          )}
-
-          {activeSec === 'adf' && (
-            <section className="theory-section" id="adf">
-              <span className="section-tag">Diapositiva 8 de 11 — Extensión ADF</span>
-              <h2>Prueba ADF: Dickey-Fuller Aumentada (Said &amp; Dickey, 1984)</h2>
-              
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
-                <div className="glass-card" style={{ padding: '1rem', margin: '0' }}>
-                  <p style={{ fontSize: '0.8rem', margin: 0 }}>
-                    <strong>Problema de la DF original:</strong> {"supone errores i.i.d. Si el proceso verdadero es $AR(p)$ o $ARMA(p,q)$, los residuos tendrán autocorrelación $\\to$ la distribución asintótica se invalida."}
-                    <br /><br />
-                    <strong>Solución:</strong> {"agregar $k$ rezagos de $\\Delta y_t$ para absorber la autocorrelación:"}
-                  </p>
-                  <div className="math-block" style={{ margin: '0.5rem 0', padding: '0.5rem' }}>
-                    {"$$\\Delta y_t = \\alpha + \\beta t + \\phi y_{t-1} + \\sum_{j=1}^k \\gamma_j \\Delta y_{t-j} + \\epsilon_t$$"}
-                  </div>
-                  <p style={{ fontSize: '0.75rem', color: 'var(--text-muted)', margin: 0 }}>
-                    {"Los términos $\\sum \\gamma_j \\Delta y_{t-j}$ absorben la autocorrelación sin alterar la distribución asintótica de $\\hat{\\tau}$ bajo $H_0$, siempre que $k \\to \\infty$ con $k^3/T \\to 0$."}
-                  </p>
-                </div>
-
-                <div className="glass-card" style={{ padding: '1rem', margin: '0' }}>
-                  <h4 style={{ color: 'var(--accent2)', fontSize: '0.85rem', marginBottom: '0.5rem' }}>Selección del Número de Rezagos $k$</h4>
-                  <div className="grid-3" style={{ gap: '0.75rem' }}>
-                    <div className="grid-cell" style={{ padding: '0.5rem' }}>
-                      <span className="cell-label" style={{ fontSize: '0.7rem' }}>AIC — Akaike</span>
-                      <div style={{ fontSize: '0.75rem', fontFamily: 'var(--mono)', margin: '0.2rem 0' }}>{"$$AIC(k) = \\ln \\hat{\\sigma}_k^2 + \\frac{2k}{T}$$"}</div>
-                    </div>
-                    <div className="grid-cell" style={{ padding: '0.5rem' }}>
-                      <span className="cell-label" style={{ fontSize: '0.7rem' }}>BIC / SIC — Schwarz</span>
-                      <div style={{ fontSize: '0.75rem', fontFamily: 'var(--mono)', margin: '0.2rem 0' }}>{"$$BIC(k) = \\ln \\hat{\\sigma}_k^2 + \\frac{k \\ln T}{T}$$"}</div>
-                    </div>
-                    <div className="grid-cell" style={{ padding: '0.5rem' }}>
-                      <span className="cell-label" style={{ fontSize: '0.7rem' }}>Ng-Perron (1995)</span>
-                      <p style={{ fontSize: '0.7rem', margin: 0 }}>{"Iniciar con $k_{max}$ y reducir secuencialmente (más eficiente en muestras pequeñas)."}</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </section>
-          )}
-
-          {activeSec === 'extensiones' && (
-            <section className="theory-section" id="extensiones">
-              <span className="section-tag">Diapositiva 9 de 11 — Extensiones</span>
-              <h2>Extensiones de la Prueba: PP · KPSS · DF-GLS</h2>
-              
-              <div className="grid-3" style={{ gap: '0.75rem', marginTop: '0.5rem' }}>
-                <div className="glass-card" style={{ padding: '0.75rem', margin: '0', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
-                  <div>
-                    <h4 style={{ color: 'var(--accent)', fontSize: '0.8rem', margin: '0 0 0.3rem 0' }}>Phillips-Perron (1988)</h4>
-                    <p style={{ fontSize: '0.7rem', margin: 0 }}>
-                      {"Alternativa no paramétrica. Corrige el estadístico DF directamente para autocorrelación y heterocedasticidad mediante el estimador de varianza de largo plazo (ventana de Bartlett):"}
-                    </p>
-                  </div>
-                  <div className="math-block" style={{ padding: '0.25rem', fontSize: '0.75rem', margin: '0.4rem 0' }}>
-                    {"$$\\hat{\\lambda}^2 = \\hat{\\gamma}_0 + 2 \\sum_{j=1}^l w(j,l) \\hat{\\gamma}_j$$"}
-                  </div>
-                  <p style={{ fontSize: '0.7rem', color: 'var(--text-muted)', margin: 0 }}>{"Misma distribución asintótica y valores críticos de MacKinnon."}</p>
-                </div>
-
-                <div className="glass-card" style={{ padding: '0.75rem', margin: '0', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
-                  <div>
-                    <h4 style={{ color: 'var(--accent2)', fontSize: '0.8rem', margin: '0 0 0.3rem 0' }}>KPSS (1992)</h4>
-                    <p style={{ fontSize: '0.7rem', margin: 0 }}>
-                    <strong>Hipótesis INVERTIDAS:</strong>
-                    <br />
-                    {"• $H_0$: estacionariedad"}
-                    <br />
-                    {"• $H_1$: raíz unitaria."}
-                    <br />
-                    {"Basado en sumas parciales de residuos $S_t = \\sum_{i=1}^t \\hat{e}_i$:"}
-                    </p>
-                  </div>
-                  <div className="math-block" style={{ padding: '0.25rem', fontSize: '0.75rem', margin: '0.4rem 0' }}>
-                    {"$$LM = \\frac{\\sum_{t=1}^T S_t^2}{T^2 \\hat{\\lambda}^2}$$" }
-                  </div>
-                  <p style={{ fontSize: '0.7rem', color: 'var(--text-muted)', margin: 0 }}>{"Usar DF+KPSS juntas: evidencia cruzada de ambos lados."}</p>
-                </div>
-
-                <div className="glass-card" style={{ padding: '0.75rem', margin: '0', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
-                  <div>
-                    <h4 style={{ color: 'var(--green)', fontSize: '0.8rem', margin: '0 0 0.3rem 0' }}>DF-GLS (Elliott et al., 1996)</h4>
-                    <p style={{ fontSize: '0.7rem', margin: 0 }}>
-                      {"Prueba de raíz unitaria con máxima potencia local. Realiza una filtración por mínimos cuadrados generalizados (GLS) eliminando la tendencia con un parámetro local $\\bar{\\rho} = 1 + \\bar{c}/T$:"}
-                    </p>
-                  </div>
-                  <div className="math-block" style={{ padding: '0.25rem', fontSize: '0.75rem', margin: '0.4rem 0' }}>
-                    {"$$\\bar{c} = -7\\text{ (const.)} \\quad \\bar{c} = -13.5\\text{ (tend.)}$$"}
-                  </div>
-                  <p style={{ fontSize: '0.7rem', color: 'var(--text-muted)', margin: 0 }}>{"Asintóticamente óptima en la clase de pruebas invariantes."}</p>
-                </div>
-              </div>
-
-              <div className="glass-card" style={{ marginTop: '0.75rem', padding: '0.5rem', textAlign: 'center', borderTop: '2px solid var(--accent)' }}>
-                <p style={{ fontSize: '0.75rem', margin: 0 }}>
-                  {"Recomendación: usar ADF + KPSS en conjunto. Si ADF rechaza $H_0$ y KPSS no rechaza $\\to$ evidencia sólida de estacionariedad."}
-                </p>
-              </div>
-            </section>
-          )}
-
-          {activeSec === 'algoritmo' && (
-            <section className="theory-section" id="algoritmo">
-              <span className="section-tag">Diapositiva 10 de 11 — Metodología</span>
-              <h2>Algoritmo de Implementación Práctica — 8 Pasos</h2>
-              
-              <div className="glass-card" style={{ padding: '1rem', margin: '0' }}>
-                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem', fontSize: '0.75rem' }}>
-                  <div>
-                    <p style={{ margin: '0 0 0.5rem 0' }}>{"1. Inspección visual: graficar $y_t$, $\\Delta y_t$, FAC y FACP. Detectar tendencia y estacionalidad preliminar."}</p>
-                    <p style={{ margin: '0 0 0.5rem 0' }}>{"2. Seleccionar modelo DF: M1 (sin constante), M2 (constante), M3 (constante + tendencia determinista)."}</p>
-                    <p style={{ margin: '0 0 0.5rem 0' }}>{"3. Determinar $k$: usar AIC, BIC o procedimiento secuencial de Ng-Perron (1995) desde $k_{max}$."}</p>
-                    <p style={{ margin: '0' }}>{"4. Estimar ADF por MCO: obtener $\\hat{\\tau}$ sobre el coeficiente de $y_{t-1}$."}</p>
-                  </div>
-                  <div>
-                    <p style={{ margin: '0 0 0.5rem 0' }}>{"5. Comparar: comparar $\\hat{\\tau}$ con VC de MacKinnon (1996) al nivel deseado (1%, 5% o 10%)."}</p>
-                    <p style={{ margin: '0 0 0.5rem 0' }}>{"6. Decisión: $\\hat{\\tau} < VC \\to$ rechazar $H_0 \\to$ estacionaria. $\\hat{\\tau} \\ge VC \\to$ no rechazar $H_0 \\to$ raíz unitaria."}</p>
-                    <p style={{ margin: '0 0 0.5rem 0' }}>{"7. Confirmar: confirmar con PP y/o KPSS para verificar robustez de la decisión."}</p>
-                    <p style={{ margin: '0' }}>{"8. Si no se rechaza $H_0$: diferenciar la serie y repetir sobre $\\Delta y_t \\to$ determinar si $I(1)$ o $I(d)$ con $d > 1$."}</p>
-                  </div>
-                </div>
-              </div>
-            </section>
-          )}
-
-          {activeSec === 'sintesis' && (
-            <section className="theory-section" id="sintesis">
-              <span className="section-tag">Diapositiva 11 de 11 — Síntesis</span>
-              <h2>Síntesis: La Arquitectura Matemática de la Prueba DF</h2>
-              
-              <div className="grid-3" style={{ gap: '0.6rem', gridTemplateColumns: 'repeat(3, 1fr)' }}>
-                <div className="glass-card" style={{ padding: '0.6rem', margin: '0' }}>
-                  <span style={{ fontSize: '0.7rem', color: 'var(--accent)', fontWeight: 'bold', textTransform: 'uppercase' }}>① El Problema</span>
-                  <p style={{ fontSize: '0.7rem', marginTop: '0.2rem', margin: '0.2rem 0 0 0' }}>{"Regresión espuria: series $I(1)$ generan $R^2$ y t-estadísticos falsos (Phillips, 1986)."}</p>
-                </div>
-                <div className="glass-card" style={{ padding: '0.6rem', margin: '0' }}>
-                  <span style={{ fontSize: '0.7rem', color: 'var(--accent)', fontWeight: 'bold', textTransform: 'uppercase' }}>② La Base</span>
-                  <p style={{ fontSize: '0.7rem', marginTop: '0.2rem', margin: '0.2rem 0 0 0' }}>{"AR(1): $\\rho=1 \\to$ varianza crece como $t \\cdot \\sigma^2 \\to \\infty$ $\to$ violación de estacionariedad."}</p>
-                </div>
-                <div className="glass-card" style={{ padding: '0.6rem', margin: '0' }}>
-                  <span style={{ fontSize: '0.7rem', color: 'var(--accent)', fontWeight: 'bold', textTransform: 'uppercase' }}>③ La Transformación</span>
-                  <p style={{ fontSize: '0.7rem', marginTop: '0.2rem', margin: '0.2rem 0 0 0' }}>{"$\\Delta y_t = \\phi y_{t-1} + \\epsilon_t$ con $H_0: \\phi=0$. Estadístico $\\hat{\\tau} = \\hat{\\phi}/SE(\\hat{\\phi})$."}</p>
-                </div>
-                <div className="glass-card" style={{ padding: '0.6rem', margin: '0' }}>
-                  <span style={{ fontSize: '0.7rem', color: 'var(--accent2)', fontWeight: 'bold', textTransform: 'uppercase' }}>④ La Distribución</span>
-                  <p style={{ fontSize: '0.7rem', marginTop: '0.2rem', margin: '0.2rem 0 0 0' }}>{"Donsker $\\to$ Wiener $\\to$ Integral de Itô $\to$ Distribución DF (no t-Student)."}</p>
-                </div>
-                <div className="glass-card" style={{ padding: '0.6rem', margin: '0' }}>
-                  <span style={{ fontSize: '0.7rem', color: 'var(--green)', fontWeight: 'bold', textTransform: 'uppercase' }}>⑤ La Superconv.</span>
-                  <p style={{ fontSize: '0.7rem', marginTop: '0.2rem', margin: '0.2rem 0 0 0' }}>{"$T \\cdot \\hat{\\phi} = O_p(1)$: converge a tasa $T$, no $\\sqrt{T}$, porque $\\sum y_{t-1}^2 \\sim T^2$."}</p>
-                </div>
-                <div className="glass-card" style={{ padding: '0.6rem', margin: '0' }}>
-                  <span style={{ fontSize: '0.7rem', color: 'var(--green)', fontWeight: 'bold', textTransform: 'uppercase' }}>⑥ La Extensión</span>
-                  <p style={{ fontSize: '0.7rem', marginTop: '0.2rem', margin: '0.2rem 0 0 0' }}>{"ADF agrega $k$ rezagos de $\\Delta y_t$ para manejar $AR(p)/ARMA$ sin cambiar la distribución."}</p>
-                </div>
-              </div>
-
-              <div style={{ textAlign: 'center', marginTop: '1rem', padding: '0.4rem 0 0 0', borderTop: '1px solid var(--border)' }}>
-                <p style={{ fontSize: '0.7rem', color: 'var(--text-muted)', margin: 0 }}>
-                  Dickey &amp; Fuller (1979) — JASA, Vol. 74, 5 páginas. +21,000 citas · Citado en el Nobel 2003 (Granger &amp; Engle) · Implementado en R, Stata, Python, EViews, SAS
-                </p>
-              </div>
             </section>
           )}
 
