@@ -244,7 +244,11 @@ function TheoryTab() {
     { id: 'problema', label: '02 · El Problema' },
     { id: 'estacionariedad', label: '03 · Proceso AR(1)' },
     { id: 'formulacion', label: '04 · Formulación Original' },
-    { id: 'modelos', label: '05 · Los Tres Modelos' }
+    { id: 'modelos', label: '05 · Los Tres Modelos' },
+    { id: 'tendencia', label: '06 · Modelo con Tendencia' },
+    { id: 'ampliada', label: '07 · Prueba Ampliada' },
+    { id: 'estadistico', label: '08 · Estadístico de Prueba' },
+    { id: 'criterio', label: '09 · Criterio de Decisión' }
   ];
 
   const activeIndex = sections.findIndex((sec) => sec.id === activeSec);
@@ -271,7 +275,7 @@ function TheoryTab() {
         <div className="step-card" key={activeSec}>
           {activeSec === 'proposito' && (
             <section className="theory-section" id="proposito">
-              <span className="section-tag">Diapositiva 1 de 5 — Propósito de la prueba</span>
+              <span className="section-tag">Diapositiva 1 de 9 — Propósito de la prueba</span>
               <h2>Propósito de la prueba</h2>
               
               <div style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem', marginTop: '1.25rem' }}>
@@ -282,7 +286,7 @@ function TheoryTab() {
                 <div className="grid-2" style={{ gridTemplateColumns: '1fr 1fr', gap: '1.25rem' }}>
                   <div className="glass-card" style={{ borderLeft: '3px solid var(--accent)', padding: '1.25rem', margin: '0' }}>
                     <h4 style={{ color: 'var(--accent)', marginBottom: '0.5rem', textTransform: 'uppercase', fontSize: '0.8rem', letterSpacing: '0.05em' }}>
-                      Objetivo del Contraste
+                      Objetivo del Contrases
                     </h4>
                     <p style={{ fontSize: '0.85rem', lineHeight: '1.5', margin: 0 }}>
                       Este contraste permite saber o conocer si existe presencia significativa de tendencia en las series temporales de las variables.
@@ -313,7 +317,7 @@ function TheoryTab() {
 
           {activeSec === 'problema' && (
             <section className="theory-section" id="problema">
-              <span className="section-tag">Diapositiva 2 de 5 — El Problema</span>
+              <span className="section-tag">Diapositiva 2 de 9 — El Problema</span>
               <h2>¿Por qué existe la Prueba de Dickey-Fuller?</h2>
               
               <div className="grid-2" style={{ gridTemplateColumns: '1fr 1fr', gap: '1.5rem', marginTop: '1rem' }}>
@@ -349,7 +353,7 @@ function TheoryTab() {
 
           {activeSec === 'estacionariedad' && (
             <section className="theory-section" id="estacionariedad">
-              <span className="section-tag">Diapositiva 3 de 5 — Proceso AR(1)</span>
+              <span className="section-tag">Diapositiva 3 de 9 — Proceso AR(1)</span>
               <h2>Estacionariedad y Proceso AR(1)</h2>
               <p style={{ fontSize: '0.85rem', marginBottom: '0.75rem' }}>
                 Un proceso es estacionario en covarianza si cumple tres condiciones para todo $t$:
@@ -406,7 +410,7 @@ function TheoryTab() {
 
           {activeSec === 'formulacion' && (
             <section className="theory-section" id="formulacion">
-              <span className="section-tag">Diapositiva 4 de 5 — Formulación</span>
+              <span className="section-tag">Diapositiva 4 de 9 — Formulación</span>
               <h2>La Prueba DF: Formulación Original (Dickey &amp; Fuller, 1979)</h2>
               <p style={{ fontSize: '0.85rem', marginBottom: '0.75rem' }}>
                 {"Transformación algebraica clave: restar $y_{t-1}$ a ambos lados del $AR(1)$"}
@@ -446,56 +450,112 @@ function TheoryTab() {
 
           {activeSec === 'modelos' && (
             <section className="theory-section" id="modelos">
-              <span className="section-tag">Diapositiva 5 de 5 — Especificaciones</span>
-              <h2>Los Tres Modelos de Dickey-Fuller (1979, 1981)</h2>
-              <p style={{ fontSize: '0.85rem', marginBottom: '0.75rem' }}>
-                Cada especificación responde a la naturaleza de la serie observada — elegir mal invalida la prueba
-              </p>
+              <span className="section-tag">Diapositiva 5 de 9 — Los Tres Modelos</span>
+              <h2>Los Tres Modelos de Dickey-Fuller</h2>
               
-              <div className="models-list" style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
-                <div className="model-item" style={{ display: 'flex', alignItems: 'center', background: 'rgba(255, 255, 255, 0.02)', padding: '0.75rem', borderRadius: '6px', border: '1px solid var(--border)' }}>
-                  <div className="model-badge" style={{ background: 'var(--accent)', color: '#000', width: '24px', height: '24px', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 'bold', marginRight: '0.75rem', flexShrink: 0 }}>1</div>
-                  <div className="model-body" style={{ flexGrow: 1 }}>
-                    <h4 style={{ margin: 0, fontSize: '0.85rem' }}>Sin constante ni tendencia</h4>
-                    <div className="model-eq" style={{ fontFamily: 'var(--mono)', fontSize: '0.9rem', margin: '0.2rem 0' }}>{"$$\\Delta y_t = \\phi y_{t-1} + \\epsilon_t$$"}</div>
-                    <div className="model-desc" style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>{"Cuando la serie oscila en torno a cero sin deriva (Estadístico: $\\hat{\\tau}$)"}</div>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem', marginTop: '1.25rem' }}>
+                <p style={{ fontSize: '0.95rem', lineHeight: '1.6', color: 'var(--text-light)', margin: 0 }}>
+                  Dickey y Fuller (1979, 1981) consideraron tres especificaciones según los componentes deterministas incluidos en la regresión:
+                </p>
+
+                <div className="glass-card" style={{ padding: '1.5rem', margin: '0', display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+                  <div style={{ padding: '0.5rem 0', borderBottom: '1px solid rgba(255,255,255,0.05)' }}>
+                    {"$$\\Delta y_t = \\phi y_{t-1} + \\varepsilon_t \\quad (Modelo \\ 1)$$" }
                   </div>
-                  <div className="model-cv-table" style={{ fontSize: '0.75rem', textAlign: 'right', minWidth: '120px' }}>
-                    <div><strong>Valores críticos ($T \\to \\infty$)</strong></div>
-                    <div><span className="cv-pct">1%:</span> -2.56 | <span className="cv-pct">5%:</span> -1.94 | <span className="cv-pct">10%:</span> -1.62</div>
+                  <div style={{ padding: '0.5rem 0', borderBottom: '1px solid rgba(255,255,255,0.05)' }}>
+                    {"$$\\Delta y_t = \\alpha + \\phi y_{t-1} + \\varepsilon_t \\quad (Modelo \\ 2)$$" }
+                  </div>
+                  <div style={{ padding: '0.5rem 0' }}>
+                    {"$$\\Delta y_t = \\alpha + \\beta t + \\phi y_{t-1} + \\varepsilon_t \\quad (Modelo \\ 3)$$" }
                   </div>
                 </div>
 
-                <div className="model-item" style={{ display: 'flex', alignItems: 'center', background: 'rgba(255, 255, 255, 0.02)', padding: '0.75rem', borderRadius: '6px', border: '1px solid var(--border)' }}>
-                  <div className="model-badge" style={{ background: 'var(--accent2)', color: '#000', width: '24px', height: '24px', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 'bold', marginRight: '0.75rem', flexShrink: 0 }}>2</div>
-                  <div className="model-body" style={{ flexGrow: 1 }}>
-                    <h4 style={{ margin: 0, fontSize: '0.85rem' }}>Con constante (drift)</h4>
-                    <div className="model-eq" style={{ fontFamily: 'var(--mono)', fontSize: '0.9rem', margin: '0.2rem 0' }}>{"$$\\Delta y_t = \\alpha + \\phi y_{t-1} + \\epsilon_t$$"}</div>
-                    <div className="model-desc" style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>{"Cuando la serie tiene media distinta de cero (más común) (Estadístico: $\\hat{\\tau}_\\mu$)"}</div>
-                  </div>
-                  <div className="model-cv-table" style={{ fontSize: '0.75rem', textAlign: 'right', minWidth: '120px' }}>
-                    <div><strong>Valores críticos ($T \\to \\infty$)</strong></div>
-                    <div><span className="cv-pct">1%:</span> -3.43 | <span className="cv-pct">5%:</span> -2.86 | <span className="cv-pct">10%:</span> -2.57</div>
-                  </div>
-                </div>
+                <p style={{ fontSize: '0.9rem', lineHeight: '1.6', color: 'var(--text-muted)', margin: 0 }}>
+                  Cada modelo genera una distribución asintótica diferente bajo $H_0$, implicando valores críticos distintos (Said & Dickey, 1984).
+                </p>
+              </div>
+            </section>
+          )}
 
-                <div className="model-item" style={{ display: 'flex', alignItems: 'center', background: 'rgba(255, 255, 255, 0.02)', padding: '0.75rem', borderRadius: '6px', border: '1px solid var(--border)' }}>
-                  <div className="model-badge" style={{ background: 'var(--green)', color: '#000', width: '24px', height: '24px', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 'bold', marginRight: '0.75rem', flexShrink: 0 }}>3</div>
-                  <div className="model-body" style={{ flexGrow: 1 }}>
-                    <h4 style={{ margin: 0, fontSize: '0.85rem' }}>Con constante y tendencia</h4>
-                    <div className="model-eq" style={{ fontFamily: 'var(--mono)', fontSize: '0.9rem', margin: '0.2rem 0' }}>{"$$\\Delta y_t = \\alpha + \\beta t + \\phi y_{t-1} + \\epsilon_t$$"}</div>
-                    <div className="model-desc" style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>{"Cuando la serie exhibe tendencia determinista visible (Estadístico: $\\hat{\\tau}_\\tau$)"}</div>
-                  </div>
-                  <div className="model-cv-table" style={{ fontSize: '0.75rem', textAlign: 'right', minWidth: '120px' }}>
-                    <div><strong>Valores críticos ($T \\to \\infty$)</strong></div>
-                    <div><span className="cv-pct">1%:</span> -3.96 | <span className="cv-pct">5%:</span> -3.41 | <span className="cv-pct">10%:</span> -3.12</div>
-                  </div>
+          {activeSec === 'tendencia' && (
+            <section className="theory-section" id="tendencia">
+              <span className="section-tag">Diapositiva 6 de 9 — Modelo con Tendencia</span>
+              <h2>Prueba de Dickey-Fuller con tendencia</h2>
+              
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem', marginTop: '1.25rem' }}>
+                <p style={{ fontSize: '0.95rem', lineHeight: '1.6', color: 'var(--text-light)', margin: 0 }}>
+                  Cuando las series de tiempo tiene una tendencia marcada, la ecuación de la prueba de DF, añade el componente de tendencia, así:
+                </p>
+
+                <div className="glass-card" style={{ padding: '2rem', margin: '0', textAlign: 'center' }}>
+                  {"$$\\Delta y_t = \\mu + \\delta T + \\theta y_{t-1} + e_t \\sim RB(0, \\sigma^2)$$" }
                 </div>
               </div>
+            </section>
+          )}
 
-              <p style={{ fontSize: '0.8rem', color: 'var(--warning)', marginTop: '0.75rem', textAlign: 'center', margin: '0.75rem 0 0 0' }}>
-                {"Regla de decisión: rechazar $H_0$ si $\\hat{\\tau} <$ Valor Crítico (prueba unilateral izquierda)"}
-              </p>
+          {activeSec === 'ampliada' && (
+            <section className="theory-section" id="ampliada">
+              <span className="section-tag">Diapositiva 7 de 9 — Prueba Ampliada</span>
+              <h2>Prueba de Dickey Fuller Ampliada</h2>
+              
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem', marginTop: '1.25rem' }}>
+                <p style={{ fontSize: '0.95rem', lineHeight: '1.6', color: 'var(--text-light)', margin: 0 }}>
+                  Esta prueba añade a la ecuación de la prueba de Dickey-Fuller los rezagos de $\Delta y_t$, así:
+                </p>
+
+                <div className="glass-card" style={{ padding: '2rem', margin: '0', textAlign: 'center' }}>
+                  {"$$\\Delta y_t = \\mu + \\theta y_{t-1} + \\gamma \\Delta y_{t-1} + e_t \\sim RB(0, \\sigma^2)$$" }
+                </div>
+              </div>
+            </section>
+          )}
+
+          {activeSec === 'estadistico' && (
+            <section className="theory-section" id="estadistico">
+              <span className="section-tag">Diapositiva 8 de 9 — Estadístico de Prueba</span>
+              <h2>Estadístico de Prueba</h2>
+              
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem', marginTop: '1.25rem' }}>
+                <div className="glass-card" style={{ borderLeft: '3px solid var(--accent)', padding: '1.25rem', margin: '0' }}>
+                  <p style={{ fontSize: '0.9rem', lineHeight: '1.6', margin: 0 }}>
+                    El estadístico de prueba es el sobre la variable dependiente rezagada. Si el coeficiente de la variable dependiente rezagada será positivo. Si es igual a la unidad, En ambos casos será no estacionaria.
+                  </p>
+                </div>
+
+                <div className="glass-card" style={{ borderLeft: '3px solid var(--accent2)', padding: '1.25rem', margin: '0' }}>
+                  <p style={{ fontSize: '0.9rem', lineHeight: '1.6', margin: 0 }}>
+                    Cuando existe tendencia en una serie temporal en un modelo AR (1), el primer regresor tenderá a ser 1 o muy cercano a 1. Esto se debe a la propiedad de reversión a la media de un proceso estocástico estacionario, es decir, cuanto más cerca esté el primer coeficiente de un modelo AR(1) de 1, más tardarán las observaciones a volver al valor medio.
+                  </p>
+                </div>
+              </div>
+            </section>
+          )}
+
+          {activeSec === 'criterio' && (
+            <section className="theory-section" id="criterio">
+              <span className="section-tag">Diapositiva 9 de 9 — Criterio de Decisión</span>
+              <h2>Criterio de Decisión</h2>
+              
+              <div className="grid-2" style={{ gridTemplateColumns: '1fr 1fr', gap: '1.5rem', marginTop: '1.5rem' }}>
+                <div className="glass-card" style={{ borderTop: '4px solid var(--danger)', padding: '1.5rem', margin: '0' }}>
+                  <h4 style={{ color: 'var(--danger)', marginBottom: '0.75rem', textTransform: 'uppercase', fontSize: '0.85rem', letterSpacing: '0.05em' }}>
+                    No rechazar la hipótesis nula (p-value &gt; 0.05)
+                  </h4>
+                  <p style={{ fontSize: '0.9rem', lineHeight: '1.6', margin: 0 }}>
+                    Si no puede rechazarse la hipótesis nula, significa que (p-value &gt; 0.05), por tanto la serie es no estacionaria y tiene raíz 1 (I(1)). La serie es Random walk = no estacionaria.
+                  </p>
+                </div>
+
+                <div className="glass-card" style={{ borderTop: '4px solid var(--green)', padding: '1.5rem', margin: '0' }}>
+                  <h4 style={{ color: 'var(--green)', marginBottom: '0.75rem', textTransform: 'uppercase', fontSize: '0.85rem', letterSpacing: '0.05em' }}>
+                    Rechazar la hipótesis nula (p-value &lt; 0.05)
+                  </h4>
+                  <p style={{ fontSize: '0.9rem', lineHeight: '1.6', margin: 0 }}>
+                    si se rechaza la nula (p-valor&lt;0.05) la serie es estacionaria y tiene una raíz 0 (I(0)). La serie es White noise = estacionaria
+                  </p>
+                </div>
+              </div>
             </section>
           )}
 
