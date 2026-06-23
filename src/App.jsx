@@ -302,7 +302,7 @@ function TheoryTab() {
             <section className="theory-section" id="proposito">
               <span className="section-tag">Diapositiva 1 de 9 — Propósito de la prueba</span>
               <h2>Propósito de la prueba</h2>
-              
+
               <div style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem', marginTop: '1.25rem' }}>
                 <p style={{ fontSize: '0.95rem', lineHeight: '1.6', color: 'var(--text-light)', margin: 0 }}>
                   Llamada de esta forma por los estadísticos estadounidenses <strong>David Dickey</strong> y <strong>Wayne Fuller</strong>, esta prueba de raíz única detecta estadísticamente la presencia de conducta tendencial que estocástica en las series temporales de las variables a través de contrastar las hipótesis.
@@ -344,7 +344,7 @@ function TheoryTab() {
             <section className="theory-section" id="problema">
               <span className="section-tag">Diapositiva 2 de 9 — El Problema</span>
               <h2>¿Por qué existe la Prueba de Dickey-Fuller?</h2>
-              
+
               <div className="grid-2" style={{ gridTemplateColumns: '1fr 1fr', gap: '1.5rem', marginTop: '1rem' }}>
                 <div className="glass-card" style={{ borderTop: '3px solid var(--danger)', padding: '1.25rem', margin: '0' }}>
                   <h4 style={{ color: 'var(--danger)', marginBottom: '0.5rem', textTransform: 'uppercase', fontSize: '0.8rem', letterSpacing: '0.05em' }}>
@@ -383,7 +383,7 @@ function TheoryTab() {
               <p style={{ fontSize: '0.85rem', marginBottom: '0.75rem' }}>
                 Un proceso es estacionario en covarianza si cumple tres condiciones para todo $t$:
               </p>
-              
+
               <div className="grid-3" style={{ gap: '0.75rem', marginBottom: '1rem' }}>
                 <div className="grid-cell" style={{ padding: '0.75rem' }}>
                   <div className="cell-label" style={{ fontSize: '0.7rem' }}>Media constante</div>
@@ -401,7 +401,7 @@ function TheoryTab() {
 
               <h4 style={{ color: 'var(--accent)', marginBottom: '0.5rem' }}>El Proceso AR(1)</h4>
               <div className="math-block" style={{ margin: '0.75rem 0', padding: '0.5rem' }}>
-                {"$$y_t = \\rho y_{t-1} + \\epsilon_t, \\quad \\epsilon_t \\sim \\text{i.i.d.}(0, \\sigma^2)$$" }
+                {"$$y_t = \\rho y_{t-1} + \\epsilon_t, \\quad \\epsilon_t \\sim \\text{i.i.d.}(0, \\sigma^2)$$"}
               </div>
 
               <div className="grid-3" style={{ gap: '0.75rem', marginBottom: '0.75rem' }}>
@@ -415,13 +415,13 @@ function TheoryTab() {
                 </div>
                 <div className="grid-cell" style={{ borderLeft: '3px solid var(--danger)', padding: '0.5rem' }}>
                   <span className="cell-label" style={{ color: 'var(--danger)', fontSize: '0.75rem', fontWeight: 'bold' }}>{"$|\\rho| > 1$"}</span>
-                  <p style={{ fontSize: '0.75rem', margin: 0 }}>Proceso EXPLOSIVO</p>
+                  <p style={{ fontSize: '0.75rem', margin: 0 }}>Proceso NO ESTACIONARIO</p>
                 </div>
               </div>
 
               <div className="glass-card" style={{ padding: '0.75rem', margin: '0' }}>
                 <p style={{ fontSize: '0.8rem', margin: 0 }}>
-                  {"Cuando $\\rho = 1$: la varianza crece sin límite $\\to$ viola estacionariedad"}
+                  {"Cuando $\\rho = 1$: la varianza crece sin límite"}
                 </p>
                 <div className="math-block" style={{ margin: '0.4rem 0', padding: '0.25rem' }}>
                   {"$$y_t = y_0 + \\sum_{i=1}^t \\epsilon_i \\quad \\implies \\quad Var[y_t] = t \\sigma^2 \\to \\infty$$"}
@@ -477,7 +477,7 @@ function TheoryTab() {
             <section className="theory-section" id="modelos">
               <span className="section-tag">Diapositiva 5 de 9 — Los Tres Modelos</span>
               <h2>Los Tres Modelos de Dickey-Fuller</h2>
-              
+
               <div style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem', marginTop: '1.25rem' }}>
                 <p style={{ fontSize: '0.95rem', lineHeight: '1.6', color: 'var(--text-light)', margin: 0 }}>
                   Dickey y Fuller (1979, 1981) consideraron tres especificaciones según los componentes deterministas incluidos en la regresión:
@@ -485,13 +485,13 @@ function TheoryTab() {
 
                 <div className="glass-card" style={{ padding: '1.5rem', margin: '0', display: 'flex', flexDirection: 'column', gap: '1rem' }}>
                   <div style={{ padding: '0.5rem 0', borderBottom: '1px solid rgba(255,255,255,0.05)' }}>
-                    {"$$\\Delta y_t = \\phi y_{t-1} + \\varepsilon_t \\quad (Modelo \\ 1)$$" }
+                    {"$$\\Delta y_t = \\phi y_{t-1} + \\varepsilon_t \\quad (Modelo \\ 1)$$"}
                   </div>
                   <div style={{ padding: '0.5rem 0', borderBottom: '1px solid rgba(255,255,255,0.05)' }}>
-                    {"$$\\Delta y_t = \\alpha + \\phi y_{t-1} + \\varepsilon_t \\quad (Modelo \\ 2)$$" }
+                    {"$$\\Delta y_t = \\alpha + \\phi y_{t-1} + \\varepsilon_t \\quad (Modelo \\ 2)$$"}
                   </div>
                   <div style={{ padding: '0.5rem 0' }}>
-                    {"$$\\Delta y_t = \\alpha + \\beta t + \\phi y_{t-1} + \\varepsilon_t \\quad (Modelo \\ 3)$$" }
+                    {"$$\\Delta y_t = \\alpha + \\beta t + \\phi y_{t-1} + \\varepsilon_t \\quad (Modelo \\ 3)$$"}
                   </div>
                 </div>
 
@@ -506,14 +506,14 @@ function TheoryTab() {
             <section className="theory-section" id="tendencia">
               <span className="section-tag">Diapositiva 6 de 9 — Modelo con Tendencia</span>
               <h2>Prueba de Dickey-Fuller con tendencia</h2>
-              
+
               <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem', marginTop: '1.25rem' }}>
                 <p style={{ fontSize: '0.95rem', lineHeight: '1.6', color: 'var(--text-light)', margin: 0 }}>
                   Cuando las series de tiempo tiene una tendencia marcada, la ecuación de la prueba de DF, añade el componente de tendencia, así:
                 </p>
 
                 <div className="glass-card" style={{ padding: '2rem', margin: '0', textAlign: 'center' }}>
-                  {"$$\\Delta y_t = \\mu + \\delta T + \\theta y_{t-1} + e_t \\sim RB(0, \\sigma^2)$$" }
+                  {"$$\\Delta y_t = \\mu + \\delta T + \\theta y_{t-1} + e_t \\sim RB(0, \\sigma^2)$$"}
                 </div>
               </div>
             </section>
@@ -523,14 +523,14 @@ function TheoryTab() {
             <section className="theory-section" id="ampliada">
               <span className="section-tag">Diapositiva 7 de 9 — Prueba Ampliada</span>
               <h2>Prueba de Dickey Fuller Ampliada</h2>
-              
+
               <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem', marginTop: '1.25rem' }}>
                 <p style={{ fontSize: '0.95rem', lineHeight: '1.6', color: 'var(--text-light)', margin: 0 }}>
                   Esta prueba añade a la ecuación de la prueba de Dickey-Fuller los rezagos de $\Delta y_t$, así:
                 </p>
 
                 <div className="glass-card" style={{ padding: '2rem', margin: '0', textAlign: 'center' }}>
-                  {"$$\\Delta y_t = \\mu + \\theta y_{t-1} + \\gamma \\Delta y_{t-1} + e_t \\sim RB(0, \\sigma^2)$$" }
+                  {"$$\\Delta y_t = \\mu + \\theta y_{t-1} + \\gamma \\Delta y_{t-1} + e_t \\sim RB(0, \\sigma^2)$$"}
                 </div>
               </div>
             </section>
@@ -540,7 +540,7 @@ function TheoryTab() {
             <section className="theory-section" id="estadistico">
               <span className="section-tag">Diapositiva 8 de 9 — Estadístico de Prueba</span>
               <h2>Estadístico de Prueba</h2>
-              
+
               <div style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem', marginTop: '1.25rem' }}>
                 <div className="glass-card" style={{ borderLeft: '3px solid var(--accent)', padding: '1.25rem', margin: '0' }}>
                   <p style={{ fontSize: '0.9rem', lineHeight: '1.6', margin: 0 }}>
@@ -561,7 +561,7 @@ function TheoryTab() {
             <section className="theory-section" id="criterio">
               <span className="section-tag">Diapositiva 9 de 9 — Criterio de Decisión</span>
               <h2>Criterio de Decisión</h2>
-              
+
               <div className="grid-2" style={{ gridTemplateColumns: '1fr 1fr', gap: '1.5rem', marginTop: '1.5rem' }}>
                 <div className="glass-card" style={{ borderTop: '4px solid var(--danger)', padding: '1.5rem', margin: '0' }}>
                   <h4 style={{ color: 'var(--danger)', marginBottom: '0.75rem', textTransform: 'uppercase', fontSize: '0.85rem', letterSpacing: '0.05em' }}>
@@ -1344,8 +1344,8 @@ function SimulationTab() {
               {params.rho < 1
                 ? 'Proceso Estacionario'
                 : params.rho === 1
-                ? 'Caminata Aleatoria (I(1))'
-                : 'Proceso Explosivo'}
+                  ? 'Caminata Aleatoria (I(1))'
+                  : 'Proceso NO ESTACIONARIO'}
             </span>
           </div>
 
@@ -1782,7 +1782,7 @@ function CaseStudyTab() {
       <div className="chart-container" style={{ marginBottom: '1.5rem' }}>
         <div className="chart-title">
           <span>
-            {seriesType === 'original' 
+            {seriesType === 'original'
               ? `Serie Temporal Real y Proyección a 15 días (${modelType === 'arima' ? 'ARIMA' : 'Holt-Winters'})`
               : 'Primera Diferencia de la Serie Temporal ($\u0394 Y_t$)'}
           </span>
@@ -1827,10 +1827,10 @@ function CaseStudyTab() {
           {/* Paths */}
           <path className="series-line" d={lineSvgPath} style={{ strokeWidth: '1.8' }} />
           {seriesType === 'original' && (
-            <path className="series-line" d={forecastSvgPath} style={{ 
-              stroke: modelType === 'arima' ? 'var(--danger)' : 'var(--warning)', 
-              strokeWidth: '1.8', 
-              strokeDasharray: '5 3' 
+            <path className="series-line" d={forecastSvgPath} style={{
+              stroke: modelType === 'arima' ? 'var(--danger)' : 'var(--warning)',
+              strokeWidth: '1.8',
+              strokeDasharray: '5 3'
             }} />
           )}
         </svg>
@@ -1907,8 +1907,8 @@ function CaseStudyTab() {
           Comparación de Modelos de Proyección: ARIMA(1,1,1) vs. Holt-Winters
         </h3>
         <p style={{ fontSize: '0.9rem', color: 'var(--text-light)', marginBottom: '1.25rem', lineHeight: '1.6' }}>
-          La demanda diaria del Tomate Riñón presenta un fuerte componente estacional de carácter semanal. 
-          Al proyectar 15 días, observamos un fenómeno operativo crítico: el modelo <strong>ARIMA(1,1,1)</strong> se aplana casi por completo a partir del segundo día 
+          La demanda diaria del Tomate Riñón presenta un fuerte componente estacional de carácter semanal.
+          Al proyectar 15 días, observamos un fenómeno operativo crítico: el modelo <strong>ARIMA(1,1,1)</strong> se aplana casi por completo a partir del segundo día
           (estancándose en $\approx 474$ unidades), lo que limita su utilidad práctica.
           <br /><br />
           Para solucionarlo, se implementó el modelo de suavización exponencial de <strong>Holt-Winters</strong> estacional aditivo con periodos estacionales de 7 días, logrando replicar con éxito los picos de venta de los días martes y valles de media semana.
