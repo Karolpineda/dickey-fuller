@@ -162,8 +162,29 @@ const ShieldIcon = ({ isGreen }) => (
   </svg>
 );
 
+const SunIcon = () => (
+  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <circle cx="12" cy="12" r="5" />
+    <line x1="12" y1="1" x2="12" y2="3" />
+    <line x1="12" y1="21" x2="12" y2="23" />
+    <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" />
+    <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" />
+    <line x1="1" y1="12" x2="3" y2="12" />
+    <line x1="21" y1="12" x2="23" y2="12" />
+    <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" />
+    <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
+  </svg>
+);
+
+const MoonIcon = () => (
+  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
+  </svg>
+);
+
 function App() {
   const [activeTab, setActiveTab] = useState('theory');
+  const [theme, setTheme] = useState(() => localStorage.getItem('theme') || 'light');
 
   // MathJax typesetting effect
   useEffect(() => {
@@ -174,38 +195,52 @@ function App() {
     }
   });
 
+  useEffect(() => {
+    document.documentElement.setAttribute('data-theme', theme);
+    localStorage.setItem('theme', theme);
+  }, [theme]);
+
+  const toggleTheme = () => {
+    setTheme(prev => (prev === 'light' ? 'dark' : 'light'));
+  };
+
   return (
     <>
       <header className="app-header">
         <div className="brand">
           <span className="brand-accent">Dickey-Fuller</span>
         </div>
-        <nav className="nav-tabs">
-          <button
-            className={`tab-btn ${activeTab === 'theory' ? 'active' : ''}`}
-            onClick={() => setActiveTab('theory')}
-          >
-            <BookIcon /> Fundamentos Teóricos
+        <div style={{ display: 'flex', alignItems: 'center' }}>
+          <nav className="nav-tabs">
+            <button
+              className={`tab-btn ${activeTab === 'theory' ? 'active' : ''}`}
+              onClick={() => setActiveTab('theory')}
+            >
+              <BookIcon /> Fundamentos Teóricos
+            </button>
+            <button
+              className={`tab-btn ${activeTab === 'calculator' ? 'active' : ''}`}
+              onClick={() => setActiveTab('calculator')}
+            >
+              <CalcIcon /> Calculadora a Mano
+            </button>
+            <button
+              className={`tab-btn ${activeTab === 'simulation' ? 'active' : ''}`}
+              onClick={() => setActiveTab('simulation')}
+            >
+              <SimIcon /> Simulador AR(1)
+            </button>
+            <button
+              className={`tab-btn ${activeTab === 'case_study' ? 'active' : ''}`}
+              onClick={() => setActiveTab('case_study')}
+            >
+              <CaseIcon /> Caso Práctico
+            </button>
+          </nav>
+          <button className="theme-toggle-btn" onClick={toggleTheme} title="Cambiar tema">
+            {theme === 'light' ? <MoonIcon /> : <SunIcon />}
           </button>
-          <button
-            className={`tab-btn ${activeTab === 'calculator' ? 'active' : ''}`}
-            onClick={() => setActiveTab('calculator')}
-          >
-            <CalcIcon /> Calculadora a Mano
-          </button>
-          <button
-            className={`tab-btn ${activeTab === 'simulation' ? 'active' : ''}`}
-            onClick={() => setActiveTab('simulation')}
-          >
-            <SimIcon /> Simulador AR(1)
-          </button>
-          <button
-            className={`tab-btn ${activeTab === 'case_study' ? 'active' : ''}`}
-            onClick={() => setActiveTab('case_study')}
-          >
-            <CaseIcon /> Caso Práctico
-          </button>
-        </nav>
+        </div>
       </header>
 
       <div className="hero">
@@ -484,10 +519,10 @@ function TheoryTab() {
                 </p>
 
                 <div className="glass-card" style={{ padding: '1.5rem', margin: '0', display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-                  <div style={{ padding: '0.5rem 0', borderBottom: '1px solid rgba(255,255,255,0.05)' }}>
+                  <div style={{ padding: '0.5rem 0', borderBottom: '1px solid var(--border)' }}>
                     {"$$\\Delta y_t = \\phi y_{t-1} + \\varepsilon_t \\quad (Modelo \\ 1)$$"}
                   </div>
-                  <div style={{ padding: '0.5rem 0', borderBottom: '1px solid rgba(255,255,255,0.05)' }}>
+                  <div style={{ padding: '0.5rem 0', borderBottom: '1px solid var(--border)' }}>
                     {"$$\\Delta y_t = \\alpha + \\phi y_{t-1} + \\varepsilon_t \\quad (Modelo \\ 2)$$"}
                   </div>
                   <div style={{ padding: '0.5rem 0' }}>
@@ -877,12 +912,12 @@ function CalculatorTab() {
                       <div className="grid-3" style={{ gridTemplateColumns: '1fr 1fr', gap: '1.5rem', margin: '1rem 0' }}>
                         <div className="grid-cell" style={{ borderLeft: '4px solid var(--danger)', padding: '1rem 1.25rem' }}>
                           <div className="cell-label" style={{ color: 'var(--danger)' }}>H0 - Hipótesis Nula</div>
-                          <p style={{ fontWeight: '500', color: 'var(--text-white)' }}>{"$$\\phi = 0 \\quad (\\rho = 1)$$"}</p>
+                          <p style={{ fontWeight: '500', color: 'var(--text-light)' }}>{"$$\\phi = 0 \\quad (\\rho = 1)$$"}</p>
                           <p style={{ fontSize: '0.8rem', marginTop: '0.35rem' }}>La serie posee raíz unitaria y <strong>NO es estacionaria</strong>. Los impactos en la serie son permanentes.</p>
                         </div>
                         <div className="grid-cell" style={{ borderLeft: '4px solid var(--green)', padding: '1rem 1.25rem' }}>
                           <div className="cell-label" style={{ color: 'var(--green)' }}>Ha - Hipótesis Alternativa</div>
-                          <p style={{ fontWeight: '500', color: 'var(--text-white)' }}>{"$$\\phi < 0 \\quad (\\rho < 1)$$"}</p>
+                          <p style={{ fontWeight: '500', color: 'var(--text-light)' }}>{"$$\\phi < 0 \\quad (\\rho < 1)$$"}</p>
                           <p style={{ fontSize: '0.8rem', marginTop: '0.35rem' }}>La serie es <strong>estacionaria</strong> y tiende a regresar a su media de largo plazo. Los shocks son transitorios.</p>
                         </div>
                       </div>
@@ -1134,7 +1169,7 @@ function CalculatorTab() {
                         </div>
                       )}
 
-                      <h4 style={{ marginTop: '2.5rem', marginBottom: '1rem', color: 'var(--text-white)' }}>Tabla de Trabajo Completa con Residuos</h4>
+                      <h4 style={{ marginTop: '2.5rem', marginBottom: '1rem', color: 'var(--text-light)' }}>Tabla de Trabajo Completa con Residuos</h4>
                       <p style={{ fontSize: '0.85rem', marginBottom: '1rem', color: 'var(--text-muted)' }}>
                         Esta es la tabla final consolidada, incluyendo los valores predichos y los residuos calculados a partir de los coeficientes estimados:
                       </p>
@@ -1453,7 +1488,7 @@ function SimulationTab() {
       {stats && (
         <div key={seriesData.join(',') + '-' + totalSims} style={{ display: 'grid', gridTemplateColumns: '1.2fr 0.8fr', gap: '1.5rem', alignItems: 'start' }}>
           <div className="glass-card" style={{ margin: 0 }}>
-            <h4 style={{ fontFamily: 'var(--heading)', fontWeight: '700', color: 'var(--text-white)', marginBottom: '1rem' }}>
+            <h4 style={{ fontFamily: 'var(--heading)', fontWeight: '700', color: 'var(--text-light)', marginBottom: '1rem' }}>
               Resultado de la Estimación OLS (Serie Simulada)
             </h4>
             <div className="sim-stats-grid">
@@ -1509,7 +1544,7 @@ function SimulationTab() {
           </div>
 
           <div className="glass-card" style={{ margin: 0, height: '100%' }}>
-            <h4 style={{ fontFamily: 'var(--heading)', fontWeight: '700', color: 'var(--text-white)', marginBottom: '0.75rem' }}>
+            <h4 style={{ fontFamily: 'var(--heading)', fontWeight: '700', color: 'var(--text-light)', marginBottom: '0.75rem' }}>
               Análisis Monte Carlo
             </h4>
             {totalSims > 0 ? (
@@ -1710,7 +1745,7 @@ function CaseStudyTab() {
 
       {/* Descriptive Statistics Panel */}
       <div className="glass-card" style={{ marginTop: '0' }}>
-        <h3 style={{ fontFamily: 'var(--heading)', fontWeight: '700', color: 'var(--text-white)', marginBottom: '0.75rem' }}>
+        <h3 style={{ fontFamily: 'var(--heading)', fontWeight: '700', color: 'var(--text-light)', marginBottom: '0.75rem' }}>
           Análisis Descriptivo de la Serie de Tiempo Real
         </h3>
         <p style={{ fontSize: '0.9rem', color: 'var(--text-light)', marginBottom: '1.25rem' }}>
@@ -1841,7 +1876,7 @@ function CaseStudyTab() {
         {/* original ADF */}
         <div className="glass-card" style={{ margin: 0, borderTop: '3px solid var(--danger)' }}>
           <span className="section-tag" style={{ color: 'var(--danger)' }}>ADF: Serie en Niveles (Original)</span>
-          <h4 style={{ fontFamily: 'var(--heading)', fontWeight: '700', color: 'var(--text-white)', marginBottom: '0.75rem' }}>
+          <h4 style={{ fontFamily: 'var(--heading)', fontWeight: '700', color: 'var(--text-light)', marginBottom: '0.75rem' }}>
             Prueba de Raíz Unitaria (ADF) en Niveles
           </h4>
           <div className="math-block" style={{ margin: '0.75rem 0', padding: '0.4rem', fontSize: '0.9rem' }}>
@@ -1872,7 +1907,7 @@ function CaseStudyTab() {
         {/* Diff ADF */}
         <div className="glass-card" style={{ margin: 0, borderTop: '3px solid var(--green)' }}>
           <span className="section-tag" style={{ color: 'var(--green)' }}>ADF: Serie Diferenciada</span>
-          <h4 style={{ fontFamily: 'var(--heading)', fontWeight: '700', color: 'var(--text-white)', marginBottom: '0.75rem' }}>
+          <h4 style={{ fontFamily: 'var(--heading)', fontWeight: '700', color: 'var(--text-light)', marginBottom: '0.75rem' }}>
             Prueba de Raíz Unitaria (ADF) en Diferencias
           </h4>
           <div className="math-block" style={{ margin: '0.75rem 0', padding: '0.4rem', fontSize: '0.9rem' }}>
@@ -1903,7 +1938,7 @@ function CaseStudyTab() {
 
       {/* Forecast comparison section */}
       <div className="glass-card">
-        <h3 style={{ fontFamily: 'var(--heading)', fontWeight: '700', color: 'var(--text-white)', marginBottom: '1rem' }}>
+        <h3 style={{ fontFamily: 'var(--heading)', fontWeight: '700', color: 'var(--text-light)', marginBottom: '1rem' }}>
           Comparación de Modelos de Proyección: ARIMA(1,1,1) vs. Holt-Winters
         </h3>
         <p style={{ fontSize: '0.9rem', color: 'var(--text-light)', marginBottom: '1.25rem', lineHeight: '1.6' }}>

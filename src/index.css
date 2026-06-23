@@ -1,4 +1,55 @@
 :root {
+  --bg: #ecf2ff;
+  --surface: rgba(255, 255, 255, 0.8);
+  --surface-solid: #ffffff;
+  --surface-hover: rgba(236, 242, 255, 0.7);
+  --border: rgba(37, 99, 235, 0.12);
+  --border-hover: rgba(37, 99, 235, 0.25);
+  --accent: #2563eb;
+  --accent-glow: rgba(37, 99, 235, 0.15);
+  --accent2: #7c3aed;
+  --accent2-glow: rgba(124, 58, 237, 0.15);
+  --green: #10b981;
+  --green-glow: rgba(16, 185, 129, 0.15);
+  --warning: #d97706;
+  --warning-glow: rgba(217, 119, 6, 0.15);
+  --danger: #ef4444;
+  --danger-glow: rgba(239, 68, 68, 0.15);
+  
+  --text: #3b4256;
+  --text-light: #0f172a;
+  --text-white: #ffffff;
+  --text-muted: #64748b;
+  
+  --sans: 'Inter', system-ui, -apple-system, sans-serif;
+  --heading: 'Outfit', sans-serif;
+  --mono: 'JetBrains Mono', monospace;
+  --serif: 'EB Garamond', serif;
+
+  /* Custom helper variables for elements that need to adapt */
+  --header-bg: rgba(236, 242, 255, 0.85);
+  --nav-tabs-bg: rgba(37, 99, 235, 0.05);
+  --hero-group-bg: rgba(37, 99, 235, 0.06);
+  --chip-bg: rgba(37, 99, 235, 0.05);
+  --table-header-bg: rgba(219, 234, 254, 0.9);
+  --chart-bg: rgba(255, 255, 255, 0.75);
+  --chart-grid: rgba(37, 99, 235, 0.06);
+  --chart-axis: rgba(37, 99, 235, 0.2);
+  --highlight-x-text: #1e3a8a;
+  --highlight-y-text: #581c87;
+  --highlight-prod-text: #78350f;
+  --highlight-sq-text: #064e3b;
+
+  /* Background glows */
+  --bg-glow1: rgba(37, 99, 235, 0.15);
+  --bg-glow2: rgba(124, 58, 237, 0.15);
+
+  font-family: var(--sans);
+  color: var(--text);
+  background-color: var(--bg);
+}
+
+[data-theme="dark"] {
   --bg: #07090e;
   --surface: rgba(16, 22, 37, 0.65);
   --surface-solid: #101625;
@@ -20,15 +71,22 @@
   --text-light: #e2e8f0;
   --text-white: #ffffff;
   --text-muted: #475569;
-  
-  --sans: 'Inter', system-ui, -apple-system, sans-serif;
-  --heading: 'Outfit', sans-serif;
-  --mono: 'JetBrains Mono', monospace;
-  --serif: 'EB Garamond', serif;
 
-  font-family: var(--sans);
-  color: var(--text);
-  background-color: var(--bg);
+  --header-bg: rgba(7, 9, 14, 0.8);
+  --nav-tabs-bg: rgba(255, 255, 255, 0.03);
+  --hero-group-bg: rgba(16, 22, 37, 0.4);
+  --chip-bg: rgba(255, 255, 255, 0.03);
+  --table-header-bg: rgba(16, 22, 37, 0.9);
+  --chart-bg: rgba(7, 9, 14, 0.5);
+  --chart-grid: rgba(255, 255, 255, 0.03);
+  --chart-axis: rgba(255, 255, 255, 0.15);
+  --highlight-x-text: #60a5fa;
+  --highlight-y-text: #c084fc;
+  --highlight-prod-text: #fbbf24;
+  --highlight-sq-text: #34d399;
+
+  --bg-glow1: rgba(59, 130, 246, 0.05);
+  --bg-glow2: rgba(139, 92, 246, 0.05);
 }
 
 * {
@@ -41,8 +99,8 @@ body {
   margin: 0;
   background-color: var(--bg);
   background-image: 
-    radial-gradient(circle at 10% 20%, rgba(59, 130, 246, 0.05) 0%, transparent 40%),
-    radial-gradient(circle at 90% 80%, rgba(139, 92, 246, 0.05) 0%, transparent 40%);
+    radial-gradient(circle at 10% 20%, var(--bg-glow1) 0%, transparent 40%),
+    radial-gradient(circle at 90% 80%, var(--bg-glow2) 0%, transparent 40%);
   background-attachment: fixed;
   color: var(--text);
   min-height: 100vh;
@@ -77,7 +135,7 @@ body {
   position: sticky;
   top: 0;
   z-index: 100;
-  background: rgba(7, 9, 14, 0.8);
+  background: var(--header-bg);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   border-bottom: 1px solid var(--border);
@@ -94,7 +152,7 @@ body {
   font-family: var(--heading);
   font-weight: 700;
   font-size: 1.25rem;
-  color: var(--text-white);
+  color: var(--text-light);
   letter-spacing: -0.02em;
 }
 
@@ -107,7 +165,7 @@ body {
 .nav-tabs {
   display: flex;
   gap: 0.5rem;
-  background: rgba(255, 255, 255, 0.03);
+  background: var(--nav-tabs-bg);
   padding: 0.25rem;
   border-radius: 8px;
   border: 1px solid var(--border);
@@ -131,7 +189,7 @@ body {
 
 .tab-btn:hover {
   color: var(--text-light);
-  background: rgba(255, 255, 255, 0.05);
+  background: var(--chip-bg);
 }
 
 .tab-btn.active {
@@ -166,7 +224,7 @@ body {
   font-family: var(--heading);
   font-size: clamp(2rem, 5vw, 3rem);
   font-weight: 800;
-  color: var(--text-white);
+  color: var(--text-light);
   line-height: 1.15;
   letter-spacing: -0.03em;
   margin-bottom: 1rem;
@@ -184,7 +242,7 @@ body {
 .hero-group {
   margin: 1.5rem auto 1.75rem;
   padding: 1rem 1.5rem;
-  background: rgba(16, 22, 37, 0.4);
+  background: var(--hero-group-bg);
   border: 1px solid var(--border);
   border-radius: 10px;
   max-width: 650px;
@@ -231,7 +289,7 @@ body {
 }
 
 .hero-chip {
-  background: rgba(255, 255, 255, 0.03);
+  background: var(--chip-bg);
   border: 1px solid var(--border);
   color: var(--text-light);
   font-size: 0.72rem;
@@ -292,7 +350,7 @@ body {
   font-family: var(--heading);
   font-weight: 700;
   font-size: 0.9rem;
-  color: var(--text-white);
+  color: var(--text-light);
   text-transform: uppercase;
   letter-spacing: 0.05em;
   margin-bottom: 0.75rem;
@@ -319,8 +377,8 @@ body {
 }
 
 .toc-link:hover {
-  color: var(--text-white);
-  background: rgba(255, 255, 255, 0.03);
+  color: var(--text-light);
+  background: var(--chip-bg);
 }
 
 .toc-link.active {
@@ -355,7 +413,7 @@ body {
   font-family: var(--heading);
   font-size: 1.75rem;
   font-weight: 700;
-  color: var(--text-white);
+  color: var(--text-light);
   margin-bottom: 1.25rem;
   padding-bottom: 0.5rem;
   border-bottom: 1px solid var(--border);
@@ -372,7 +430,7 @@ body {
   font-family: var(--heading);
   font-size: 1.25rem;
   font-weight: 600;
-  color: var(--text-white);
+  color: var(--text-light);
   margin: 2rem 0 0.75rem;
 }
 
@@ -421,7 +479,7 @@ body {
 
 /* Math Blocks */
 .math-block {
-  background: rgba(255, 255, 255, 0.02);
+  background: var(--chip-bg);
   border: 1px solid var(--border);
   border-radius: 8px;
   padding: 1.25rem;
@@ -452,7 +510,7 @@ body {
 }
 
 .grid-cell {
-  background: rgba(255, 255, 255, 0.02);
+  background: var(--chip-bg);
   border: 1px solid var(--border);
   border-radius: 8px;
   padding: 1rem;
@@ -469,7 +527,7 @@ body {
 .cell-val {
   font-family: var(--mono);
   font-weight: 600;
-  color: var(--text-white);
+  color: var(--text-light);
   font-size: 0.9rem;
 }
 
@@ -482,7 +540,7 @@ body {
 }
 
 .model-item {
-  background: rgba(255, 255, 255, 0.015);
+  background: var(--chip-bg);
   border: 1px solid var(--border);
   border-radius: 10px;
   padding: 1.25rem 1.5rem;
@@ -511,7 +569,7 @@ body {
   font-family: var(--heading);
   font-size: 1rem;
   font-weight: 600;
-  color: var(--text-white);
+  color: var(--text-light);
   margin-bottom: 0.25rem;
 }
 
@@ -558,8 +616,8 @@ body {
 }
 
 .premium-table th {
-  background: rgba(16, 22, 37, 0.9);
-  color: var(--text-white);
+  background: var(--table-header-bg);
+  color: var(--text-light);
   font-weight: 600;
   padding: 0.75rem 1rem;
   border-bottom: 2px solid var(--border);
@@ -577,11 +635,11 @@ body {
 }
 
 .premium-table tbody tr:nth-child(even) td {
-  background: rgba(255, 255, 255, 0.01);
+  background: var(--chip-bg);
 }
 
 .premium-table tbody tr:hover td {
-  background: rgba(255, 255, 255, 0.03);
+  background: var(--surface-hover);
 }
 
 .premium-table td.header-col {
@@ -615,12 +673,12 @@ body {
 .input-header h3 {
   font-family: var(--heading);
   font-size: 1.1rem;
-  color: var(--text-white);
+  color: var(--text-light);
   font-weight: 700;
 }
 
 .reset-btn {
-  background: rgba(255, 255, 255, 0.03);
+  background: var(--chip-bg);
   border: 1px solid var(--border);
   color: var(--text);
   font-family: var(--sans);
@@ -636,8 +694,8 @@ body {
 }
 
 .reset-btn:hover {
-  background: rgba(255, 255, 255, 0.08);
-  color: var(--text-white);
+  background: var(--surface-hover);
+  color: var(--text-light);
   border-color: var(--border-hover);
 }
 
@@ -648,7 +706,7 @@ body {
 }
 
 .input-cell {
-  background: rgba(255, 255, 255, 0.01);
+  background: var(--chip-bg);
   border: 1px solid var(--border);
   border-radius: 6px;
   padding: 0.4rem 0.6rem;
@@ -667,7 +725,7 @@ body {
 .input-field {
   background: transparent;
   border: none;
-  color: var(--text-white);
+  color: var(--text-light);
   font-family: var(--mono);
   font-size: 0.85rem;
   padding-left: 0.5rem;
@@ -681,7 +739,7 @@ body {
 
 /* Interactive Charts */
 .chart-container {
-  background: rgba(7, 9, 14, 0.5);
+  background: var(--chart-bg);
   border: 1px solid var(--border);
   border-radius: 10px;
   padding: 1.25rem;
@@ -692,7 +750,7 @@ body {
   font-family: var(--heading);
   font-weight: 600;
   font-size: 0.95rem;
-  color: var(--text-white);
+  color: var(--text-light);
   margin-bottom: 1rem;
   display: flex;
   justify-content: space-between;
@@ -726,12 +784,12 @@ body {
 }
 
 .chart-grid-line {
-  stroke: rgba(255, 255, 255, 0.03);
+  stroke: var(--chart-grid);
   stroke-dasharray: 4;
 }
 
 .chart-axis-line {
-  stroke: rgba(255, 255, 255, 0.15);
+  stroke: var(--chart-axis);
 }
 
 .chart-axis-text {
@@ -788,7 +846,7 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background: rgba(255, 255, 255, 0.02);
+  background: var(--chip-bg);
   border: 1px solid var(--border);
   border-radius: 8px;
   padding: 0.75rem 1.25rem;
@@ -799,7 +857,7 @@ body {
   font-family: var(--heading);
   font-size: 0.95rem;
   font-weight: 600;
-  color: var(--text-white);
+  color: var(--text-light);
 }
 
 .step-nav-btn {
@@ -875,7 +933,7 @@ body {
   font-family: var(--heading);
   font-size: 1.2rem;
   font-weight: 700;
-  color: var(--text-white);
+  color: var(--text-light);
 }
 
 .step-body p {
@@ -906,22 +964,22 @@ body {
 
 .highlight-header-x {
   background: rgba(59, 130, 246, 0.15) !important;
-  color: #60a5fa !important;
+  color: var(--highlight-x-text) !important;
 }
 
 .highlight-header-y {
   background: rgba(139, 92, 246, 0.15) !important;
-  color: #c084fc !important;
+  color: var(--highlight-y-text) !important;
 }
 
 .highlight-header-prod {
   background: rgba(245, 158, 11, 0.15) !important;
-  color: #fbbf24 !important;
+  color: var(--highlight-prod-text) !important;
 }
 
 .highlight-header-sq {
   background: rgba(16, 185, 129, 0.15) !important;
-  color: #34d399 !important;
+  color: var(--highlight-sq-text) !important;
 }
 
 /* Stat Decisión Badge */
@@ -995,7 +1053,7 @@ body {
   font-family: var(--heading);
   font-size: 1.15rem;
   font-weight: 700;
-  color: var(--text-white);
+  color: var(--text-light);
   margin-bottom: 0.5rem;
 }
 
@@ -1041,7 +1099,7 @@ body {
   width: 100%;
   height: 5px;
   border-radius: 5px;
-  background: rgba(255, 255, 255, 0.08);
+  background: var(--border);
   outline: none;
   transition: all 0.2s;
 }
@@ -1095,7 +1153,7 @@ body {
 }
 
 .secondary-btn {
-  background: rgba(255, 255, 255, 0.03);
+  background: var(--chip-bg);
   border: 1px solid var(--border);
   color: var(--text-light);
   font-family: var(--sans);
@@ -1108,9 +1166,9 @@ body {
 }
 
 .secondary-btn:hover {
-  background: rgba(255, 255, 255, 0.07);
+  background: var(--surface-hover);
   border-color: var(--border-hover);
-  color: var(--text-white);
+  color: var(--text-light);
 }
 
 /* Simulation Results */
@@ -1122,7 +1180,7 @@ body {
 }
 
 .stat-card {
-  background: rgba(255, 255, 255, 0.01);
+  background: var(--chip-bg);
   border: 1px solid var(--border);
   border-radius: 8px;
   padding: 0.75rem 1rem;
@@ -1141,7 +1199,7 @@ body {
   font-family: var(--mono);
   font-size: 1.1rem;
   font-weight: 600;
-  color: var(--text-white);
+  color: var(--text-light);
 }
 
 .stat-val.green {
@@ -1158,7 +1216,7 @@ body {
 
 /* Footer styling */
 .app-footer {
-  background: rgba(7, 9, 14, 0.9);
+  background: var(--header-bg);
   border-top: 1px solid var(--border);
   padding: 2rem;
   text-align: center;
@@ -1211,4 +1269,41 @@ body {
   .grid-3 {
     grid-template-columns: 1fr;
   }
+}
+
+/* Theme Toggle Button */
+.theme-toggle-btn {
+  background: var(--chip-bg);
+  border: 1px solid var(--border);
+  color: var(--text-light);
+  width: 2.2rem;
+  height: 2.2rem;
+  border-radius: 8px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+  margin-left: 1rem;
+}
+
+.theme-toggle-btn:hover {
+  background: var(--surface-hover);
+  border-color: var(--border-hover);
+  transform: scale(1.05);
+}
+
+.theme-toggle-btn svg {
+  width: 1.15rem;
+  height: 1.15rem;
+  stroke: currentColor;
+}
+
+/* MathJax color inheritance correction */
+mjx-container,
+.MathJax,
+mjx-math,
+mjx-math * {
+  color: inherit !important;
+  fill: currentColor !important;
 }
